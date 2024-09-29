@@ -7,22 +7,21 @@ export default function Boton({ children }) {
         <div style={styles.contenedor}>
             {children}
         </div>
-    )
+    );
 }
 
 // Definición de estilos en línea
 const styles = {
     contenedor: {
-        backgroundColor: colors.violeta,
+        backgroundColor: colors.celeste,
         textAlign: 'center',
         backgroundImage: `url(${patronNumeros})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',  
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
         backgroundRepeat: 'no-repeat', 
         width: '100vw', 
         height: '100vh', 
-        display: 'flex',
-        justifyContent: 'center',
+        display: 'flex', 
+        justifyContent: 'center', 
     },
-
 };
