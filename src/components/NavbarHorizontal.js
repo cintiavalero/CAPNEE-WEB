@@ -3,15 +3,15 @@ import colors from "../constants/colors";
 import logo from '../assets/logo_capnee_white.png'; 
 import iconoUsuario from '../assets/icon-user.png'; 
 
-export default function NavVertical() {  
+export default function NavHorizontal() {  
     return (
         <div style={styles.contenedor}>
             <div style={styles.contenedorLogo}>
-                <img src={logo} alt="Logo CAPNEE blanco" style={styles.logo} />
+                <img  src={logo} alt="Logo CAPNEE blanco" />
             </div>
             <div style={styles.contenedorUsuario}>
-                <img style={styles.iconoUsuario} src={iconoUsuario} alt="Ícono de usuario" /> 
                 <span style={styles.usuario}>Nombre Apellido</span>  
+                <img style={styles.iconoUsuario} src={iconoUsuario} alt="Ícono de usuario" /> 
             </div>
         </div>
     );
@@ -19,35 +19,26 @@ export default function NavVertical() {
 
 const styles = {
     iconoUsuario: {
-        height: '45px', 
+        height: '30px', 
     },
     usuario: {
-        fontWeight: 'bold', // Cambié el peso a 'bold' para que sea más destacado
-        color: 'white', 
-        textAlign: 'center',
-        fontSize: '18px',
+        fontWeight: '500', 
+        marginRight: '10px',
     },
     contenedor: {
-        backgroundColor: colors.violeta, 
-        height: '100vh',
-        width: '250px',
+        backgroundColor: colors.violeta,
+        height: '70px',
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'space-between',
-        alignItems: 'center',
     },
     contenedorLogo: {
         display: 'flex',
-        alignItems: 'center', // Centra verticalmente el logo
-        marginTop:'30px',
+        marginLeft: '10px',
     },
     contenedorUsuario: {
         display: 'flex',
-        flexDirection: 'column',
+        justifyContent: 'flex-end',
         alignItems: 'center', 
-        marginBottom: '30px',
+        marginRight: '10px',
     },
-    logo: {
-        height: '90px', 
-        },
 };
