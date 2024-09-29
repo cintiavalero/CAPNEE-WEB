@@ -2,7 +2,7 @@ import React from "react";
 import colors from "../constants/colors";
 import patronNumeros from '../assets/number_pattern.png'; 
 
-export default function Boton({ children }) {  
+export default function FondoA({ children }) {  
     return(
         <div style={styles.contenedor}>
             {children}
