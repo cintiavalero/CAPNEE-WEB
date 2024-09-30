@@ -26,7 +26,7 @@ const styles = {
         display:'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.violeta,
+        backgroundColor: colors.celesteOscuro,
         color: colors.blanco,
         border: 'none',
         cursor: 'pointer',
@@ -58,7 +58,7 @@ const styles = {
     },
     headerModal: {
         borderRadius: '10px 10px 0 0',
-        backgroundColor: colors.violeta, 
+        backgroundColor: colors.celesteOscuro, 
         width: '100%', 
         height: '40px', 
         display: 'flex',

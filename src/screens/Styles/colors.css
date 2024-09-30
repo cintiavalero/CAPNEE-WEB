@@ -1,10 +1,10 @@
 :root {
     --celeste: #85dff7;
-    --celeste-claro: #C2EEFA;
-    --celeste-oscuro: #27ABCE;
-    --violeta-claro: #EDE4FC;
+    --celesteClaro: #C2EEFA;
+    --celesteOscuro: #27ABCE;
+    --violetaClaro: #EDE4FC;
     --violeta: #b28cf6;
-    --violeta-oscuro: #7902B0;
+    --violetaOscuro: #7902B0;
     --verde: #90d58f;
     --verdeOscuro: #3BAB39;
     --rojo: #fc5f72;
@@ -12,5 +12,5 @@
     --blanco: #ffffff;
     --gris: #a4a0a9;
     --negro: black;
-    --gris-claro: #e3e3e3;
+    --grisClaro: #e3e3e3;
 }
