@@ -1,8 +1,9 @@
 import React from "react";
 import colors from "../constants/colors";
-import Aceptar from "./BotonAceptar"; // Asegúrate de que la ruta sea correcta
+import Aceptar from "./BotonAceptar";
+import Guardar from "./BotonGuardar";
 
-export default function ModalChico() {  
+export default function ModalGrande() {  
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
@@ -14,6 +15,7 @@ export default function ModalChico() {
                     <p>Contenido del modal</p>
                 </div>
                 <div style={styles.footerModal}>
+                    <Guardar/>
                     <Aceptar/>
                 </div>
             </div>
@@ -48,12 +50,11 @@ const styles = {
     contenedorModal: {
         backgroundColor: colors.blanco, 
         borderRadius: '10px',
-        width: '550px',
-        height: '230px', 
+        width: '900px',
+        height: '500px', 
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-
     },
     headerModal: {
         borderRadius: '10px 10px 0 0',
@@ -76,5 +77,6 @@ const styles = {
         alignItems: 'center',
         textAlign: 'center',
         padding: '20px',
+        gap: '10px',
     },
 };

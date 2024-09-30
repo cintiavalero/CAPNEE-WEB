@@ -1,0 +1,65 @@
+@import 'colors.css';
+
+.listadoCursos .contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 700px;
+    gap: 20px;
+}
+
+.listadoCursos .listaCursos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.listadoCursos .curso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--blanco); /* Uso de la variable */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.listadoCursos .accionesCurso {
+    display: flex;
+    gap: 10px;
+}
+
+.listadoCursos .accionesCurso button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+.listadoCursos .accionesCurso button img {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+}
+
+.listadoCursos #cicloLectivo {
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
+    width: 100%;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.listadoCursos #añoDivision {
+    text-align: left;
+    font-weight: bold;
+    font-size: 28px;
+    margin: 0;
+    color: var(--violeta); /* Uso de la variable */
+}

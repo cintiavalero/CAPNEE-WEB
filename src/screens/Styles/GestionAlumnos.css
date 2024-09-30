@@ -1,0 +1,79 @@
+@import 'colors.css';
+
+.gestionAlumnos .contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 700px;
+    gap: 20px;
+}
+
+.gestionAlumnos .listaAlumnos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.gestionAlumnos .alumno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--blanco); /* Uso de la variable */
+    border-radius: 10px;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 90px;
+}
+.gestionAlumnos .datosAlumno {
+    height: 100%;
+
+    display: flex;
+}
+.gestionAlumnos .datosUsuarioAlumno {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--verdeOscuro);
+    height: 100%;
+    width: 170px;
+    border-radius: 10px;
+    color: var(--blanco);
+}
+.gestionAlumnos .datosPersonalesAlumno {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding: 0 10px;
+}
+.gestionAlumnos .datosPersonalesAlumno p{
+    font-size: 14px;
+    margin: 4px;
+}
+
+.gestionAlumnos .accionesAlumno {
+    display: flex;
+    gap: 10px;
+}
+
+.gestionAlumnos .accionesAlumno button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 14px;
+    gap: 5px;
+    font-weight:600;
+}
+
+.gestionAlumnos .accionesAlumno button img {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+}

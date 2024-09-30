@@ -2,26 +2,27 @@ import React from "react";
 import colors from "../constants/colors";
 import patronNumeros from '../assets/number_pattern.png'; 
 
-export default function FondoB({ children }) {  
+export default function FondoA({ children }) {  
     return(
-        <div style={styles.contenedor}>
+        <div style={stylesFondoA.contenedor}>
             {children}
         </div>
-    );
+    )
 }
 
 // Definición de estilos en línea
-const styles = {
+const stylesFondoA = {
     contenedor: {
-        backgroundColor: colors.celeste,
+        backgroundColor: colors.celesteClaro,
         textAlign: 'center',
         backgroundImage: `url(${patronNumeros})`,
-        backgroundSize: 'cover', 
-        backgroundPosition: 'center', 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',  
         backgroundRepeat: 'no-repeat', 
         width: '100vw', 
         height: '100vh', 
-        display: 'flex', 
-        justifyContent: 'center', 
+        display: 'flex',
+        flexDirection: 'column',
     },
+
 };

@@ -1,0 +1,34 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+header{
+    width: 100%;
+}
+.header-vertical{
+    position:absolute;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+h1 {
+    color: var(--violeta-oscuro); /* Uso de la variable */
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 0;
+}
+
+h2 {
+    margin: 10px;
+    font-size: 18px;
+    font-weight: normal;
+}

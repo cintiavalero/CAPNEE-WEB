@@ -6,25 +6,25 @@ import iconoCurso from '../assets/icon-book.png';
 
 export default function NavVertical() {  
     return (
-        <div style={styles.contenedor}>
-            <div style={styles.contenedorLogo}>
-                <img src={logo} alt="Logo CAPNEE blanco" style={styles.logo} />
+        <div style={stylesNavV.contenedor}>
+            <div style={stylesNavV.contenedorLogo}>
+                <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
             <div>
-                <div style={styles.contenedorUsuario}>
-                    <img style={styles.icono} src={iconoCurso} alt="Ícono de curso" /> 
-                    <span style={styles.usuario}>Curso y división</span>  
+                <div style={stylesNavV.contenedorUsuario}>
+                    <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
+                    <span style={stylesNavV.usuario}>Curso y división</span>  
                 </div>
-                <div style={styles.contenedorCurso}>
-                    <img style={styles.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
-                    <span style={styles.usuario}>Nombre Apellido</span>  
+                <div style={stylesNavV.contenedorCurso}>
+                    <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
+                    <span style={stylesNavV.usuario}>Nombre Apellido</span>  
                 </div>
             </div>
         </div>
     );
 }
 
-const styles = {
+const stylesNavV = {
     icono: {
         height: '35px', 
         marginRight: '10px',

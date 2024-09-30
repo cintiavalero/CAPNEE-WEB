@@ -4,16 +4,16 @@ import patronNumeros from '../assets/number_pattern.png';
 
 export default function FondoA({ children }) {  
     return(
-        <div style={styles.contenedor}>
+        <div style={stylesFondoA.contenedor}>
             {children}
         </div>
     )
 }
 
 // Definición de estilos en línea
-const styles = {
+const stylesFondoA = {
     contenedor: {
-        backgroundColor: colors.violeta,
+        backgroundColor: colors.violetaClaro,
         textAlign: 'center',
         backgroundImage: `url(${patronNumeros})`,
         backgroundSize: 'cover',
@@ -22,7 +22,7 @@ const styles = {
         width: '100vw', 
         height: '100vh', 
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
     },
 
 };

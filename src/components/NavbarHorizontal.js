@@ -5,40 +5,44 @@ import iconoUsuario from '../assets/icon-user.png';
 
 export default function NavHorizontal() {  
     return (
-        <div style={styles.contenedor}>
-            <div style={styles.contenedorLogo}>
+        <div style={StylesNavH.contenedor}>
+            <div style={StylesNavH.contenedorLogo}>
                 <img  src={logo} alt="Logo CAPNEE blanco" />
             </div>
-            <div style={styles.contenedorUsuario}>
-                <span style={styles.usuario}>Nombre Apellido</span>  
-                <img style={styles.iconoUsuario} src={iconoUsuario} alt="Ícono de usuario" /> 
+            <div style={StylesNavH.contenedorUsuario}>
+                <span style={StylesNavH.usuario}>Nombre Apellido</span>  
+                <img style={StylesNavH.iconoUsuario} src={iconoUsuario} alt="Ícono de usuario" /> 
             </div>
         </div>
     );
 }
 
-const styles = {
+const StylesNavH = {
     iconoUsuario: {
         height: '30px', 
     },
     usuario: {
         fontWeight: '500', 
         marginRight: '10px',
+        color: colors.blanco, 
     },
     contenedor: {
         backgroundColor: colors.violeta,
         height: '70px',
+        widht:'50%',
         display: 'flex',
         justifyContent: 'space-between',
     },
     contenedorLogo: {
         display: 'flex',
-        marginLeft: '10px',
+        marginLeft: '25px',
+        widht:'50%',
     },
     contenedorUsuario: {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center', 
-        marginRight: '10px',
+        marginRight: '25px',
+        widht:'50%'
     },
 };

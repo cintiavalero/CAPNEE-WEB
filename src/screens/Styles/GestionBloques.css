@@ -1,0 +1,48 @@
+@import 'colors.css';
+.gestionBloques {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+.gestionBloques .contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 700px;
+    gap: 20px;
+}
+.gestionBloques .listaBloques {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-top: 35px;
+    gap: 40px; 
+}
+
+.gestionBloques .bloque {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 240px; 
+    width: 180px;
+    background-color: var(--blanco);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.gestionBloques .imagenBloque {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+}
+.gestionBloques .imagenBloque img{
+    width: 80%;
+}
+.gestionBloques .tituloBloque {
+    display: flex;
+    font-weight: bold;
+    height: 30%;
+}

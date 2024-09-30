@@ -1,0 +1,46 @@
+@import 'colors.css';
+.gestionEjercicios {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+.gestionEjercicios .contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 700px;
+    gap: 20px;
+}
+.gestionEjercicios .listaEjercicios {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 15px; 
+}
+
+.gestionEjercicios .ejercicio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    height: 60px; width: 100%;
+    background-color: var(--celeste);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0 20px;
+}
+.gestionEjercicios .ejercicio img{
+    height: 30px;
+}
+.gestionEjercicios .ejercicio p{
+    margin: 0;
+    font-size: 17px;
+}
+
+.gestionEjercicios #cantidadEjercicios{
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    margin-top: 35px;
+}

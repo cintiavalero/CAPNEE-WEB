@@ -2,7 +2,7 @@ import React from "react";
 import colors from "../constants/colors";
 import Aceptar from "./BotonAceptar"; // Asegúrate de que la ruta sea correcta
 
-export default function ModalChico() {  
+export default function ModalMediano() {  
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
@@ -49,7 +49,7 @@ const styles = {
         backgroundColor: colors.blanco, 
         borderRadius: '10px',
         width: '550px',
-        height: '230px', 
+        height: '330px', 
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
