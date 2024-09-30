@@ -1,10 +1,12 @@
 import React from "react";
 import colors from "../constants/colors";
 
-
-const BotonAceptar = ({ onClick }) => {
+const BotonAceptar = ({ onClick, colorFondo }) => {
     return (
-        <button style={styles.boton} onClick={onClick}>
+        <button 
+            style={{ ...styles.boton, backgroundColor: colorFondo || colors.violeta }} 
+            onClick={onClick}
+        >
             Aceptar
         </button>
     );
@@ -12,11 +14,10 @@ const BotonAceptar = ({ onClick }) => {
 
 const styles = {
     boton: {
-        display:'flex',
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.violeta,
-        color: colors.blanco, // Color del texto en blanco
+        color: colors.blanco,
         border: 'none',
         borderRadius: '5px',
         padding: '5px 35px',

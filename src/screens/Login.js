@@ -9,7 +9,7 @@ function Login() {
       <div className="login-container">
         <div className="login-box">
           <img className="logo" src={logo} alt="CAPNEE Logo" />                                     
-          <h2>Iniciar Sesión</h2>
+          <h3>Iniciar Sesión</h3>
           <form>
             <div className="input-group">
               <label htmlFor="username">Nombre de usuario:</label>

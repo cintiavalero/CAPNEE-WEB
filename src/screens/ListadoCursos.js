@@ -10,6 +10,7 @@ import "./Styles/ListadoCursos.css";
 import iconoFlecha from '../assets/icon-flecha.png'; 
 import iconoEditar from '../assets/icon-editar.png'; 
 import iconoEliminar from '../assets/icon-trash.png'; 
+import colors from "../constants/colors";
 
 function ListadoCursos() {
 
@@ -57,13 +58,57 @@ function ListadoCursos() {
                             </div>
                         </article>
                     </div>
-                    <Agregar onClick={editar}/>
+                    <Agregar onClick={agregar}/>
                 </div>
             </body>
-            {popupEliminar && <ModalChico cerrar={cancelarEliminar} />}
-            {popupEditar && <ModalMediano cerrar={cancelarEditar} />}
-            {popupVer && <ModalGrande cerrar={cancelarVer} />}
-            {popupAgregar && <ModalMediano cerrar={cancelarAgregar} />}
+            {popupEliminar && (
+              <ModalChico 
+                titulo="Dar de baja un curso"
+                cerrar={cancelarEliminar} 
+                colorFondo={colors.rojo} 
+                contenido={
+                    <>
+                        ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
+                    </>
+                }
+                />
+            )}
+            {popupEditar && (
+              <ModalMediano 
+                titulo="Editar un curso"
+                cerrar={cancelarEditar} 
+                colorFondo={colors.celesteOscuro} 
+                contenido={
+                    <>
+                        Está <b>Editanto</b>
+                    </>
+                }
+                />
+            )}
+            {popupVer && (
+              <ModalGrande 
+                titulo="Visualizar curso"
+                cerrar={cancelarVer} 
+                colorFondo={colors.verde} 
+                contenido={
+                    <>
+                        Está <b>Viendo</b>
+                    </>
+                }
+                />
+            )}
+            {popupAgregar && (
+              <ModalMediano 
+                titulo="Dar de alta un curso"
+                cerrar={cancelarAgregar} 
+                colorFondo={colors.violeta} 
+                contenido={
+                    <>
+                        Está <b>Editanto</b>
+                    </>
+                }
+                />
+            )}
         </Fondo>
     );
 }

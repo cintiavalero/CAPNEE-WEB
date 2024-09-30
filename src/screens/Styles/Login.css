@@ -27,14 +27,15 @@
 }
 
 .logo {
-    width: 150px;
-    margin-bottom: 20px;
+    width: 200px;
 }
 
-h2 {
-    font-size: 24px;
+h3{
+    font-size: 15px;
     color: #333;
-    margin-bottom: 20px;
+    text-align: left;
+    margin:0;
+    margin-bottom: 35px;
 }
 
 /* Campos de formulario */

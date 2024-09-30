@@ -3,20 +3,20 @@ import colors from "../constants/colors";
 import Aceptar from "./BotonAceptar";
 import Guardar from "./BotonGuardar";
 
-export default function ModalGrande({ cerrar }) {  
+export default function ModalGrande({  cerrar, titulo, contenido, colorFondo  }) {  
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
-                <div style={styles.headerModal}>
-                    <p style={styles.titulo}>Titulo modal</p>
-                    <button onClick={cerrar} style={styles.cerrar}>X</button>
-                </div>
+            <div style={{ ...styles.headerModal, backgroundColor: colorFondo || colors.violeta }}>
+            <p style={styles.titulo}>{titulo}</p>
+            <button onClick={cerrar} style={{ ...styles.cerrar, backgroundColor: colorFondo || colors.violeta }}>X</button>
+            </div>
                 <div style={styles.bodyModal}>
-                    <p>Contenido del modal</p>
+                <p>{contenido}</p>
                 </div>
                 <div style={styles.footerModal}>
                     <Guardar/>
-                    <Aceptar/>
+                    <Aceptar colorFondo={colorFondo}/>
                 </div>
             </div>
         </div>
