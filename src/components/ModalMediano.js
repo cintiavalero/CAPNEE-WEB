@@ -2,13 +2,13 @@ import React from "react";
 import colors from "../constants/colors";
 import Aceptar from "./BotonAceptar"; // Asegúrate de que la ruta sea correcta
 
-export default function ModalMediano() {  
+export default function ModalMediano({ cerrar }) {  
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
                 <div style={styles.headerModal}>
                     <p style={styles.titulo}>Titulo modal</p>
-                    <button style={styles.cerrar}>X</button>
+                    <button onClick={cerrar} style={styles.cerrar}>X</button>
                 </div>
                 <div style={styles.bodyModal}>
                     <p>Contenido del modal</p>
@@ -44,6 +44,7 @@ const styles = {
         display:'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        position:'absolute',
     },
     contenedorModal: {
         backgroundColor: colors.blanco, 

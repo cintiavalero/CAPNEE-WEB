@@ -4,7 +4,6 @@ import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionActividades.css";
 import iconoEjercicio from '../assets/icon-book.png'; 
-import conocerNumeros from '../assets/numerosNaturales-usarYConocerLosNumeros.png'; 
 
 function GestionActividades() {
     return (

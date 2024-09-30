@@ -18,7 +18,7 @@ const stylesFondoA = {
         backgroundImage: `url(${patronNumeros})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',  
-        backgroundRepeat: 'no-repeat', 
+        backgroundRepeat: 'repeat-y', 
         width: '100vw', 
         height: '100vh', 
         display: 'flex',

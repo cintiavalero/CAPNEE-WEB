@@ -1,14 +1,14 @@
 import React from "react";
 import colors from "../constants/colors";
-import Aceptar from "./BotonAceptar"; // Asegúrate de que la ruta sea correcta
+import Aceptar from "./BotonAceptar";
 
-export default function ModalChico() {  
+export default function ModalChico({ cerrar }) { 
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
                 <div style={styles.headerModal}>
                     <p style={styles.titulo}>Titulo modal</p>
-                    <button style={styles.cerrar}>X</button>
+                    <button onClick={cerrar} style={styles.cerrar}>X</button>
                 </div>
                 <div style={styles.bodyModal}>
                     <p>Contenido del modal</p>
@@ -22,44 +22,44 @@ export default function ModalChico() {
 }
 
 const styles = {
-    cerrar:{
-        display:'flex',
+    cerrar: {
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.violeta,
+        backgroundColor: colors.rojo,
         color: colors.blanco,
         border: 'none',
         cursor: 'pointer',
         fontSize: '15px',
         marginRight: '20px',
     },
-    titulo:{
+    titulo: {
         marginLeft: '20px',
-        fontWeight: 'bold', 
+        fontWeight: 'bold',
     },
     fondo: {
-        backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-        width: '100vw', 
-        height: '100vh', 
-        display:'flex',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        position:'absolute',
     },
     contenedorModal: {
-        backgroundColor: colors.blanco, 
+        backgroundColor: colors.blanco,
         borderRadius: '10px',
         width: '550px',
-        height: '230px', 
+        height: '230px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-
     },
     headerModal: {
         borderRadius: '10px 10px 0 0',
-        backgroundColor: colors.violeta, 
-        width: '100%', 
-        height: '40px', 
+        backgroundColor: colors.rojo,
+        width: '100%',
+        height: '40px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
