@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './screens/ListadoCursos';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Login from './screens/Login'
+import ListadoCursos from './screens/ListadoCursos';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+    {/* <App/> */}
+    <Router>
+      <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/listadocursos" element={<ListadoCursos/>} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 reportWebVitals();
