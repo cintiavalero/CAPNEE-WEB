@@ -10,11 +10,11 @@ export default function NavHorizontal() {
 
     return (
         <div style={StylesNavH.contenedor}>
-            <div style={StylesNavH.contenedorLogo}>
-                <img  src={logo} alt="Logo CAPNEE blanco" />
+            <div onClick={() => navigate('/listadocursos')} style={StylesNavH.contenedorLogo}>
+                    <img  src={logo} alt="Logo CAPNEE blanco" />
             </div>
             <div style={StylesNavH.contenedorAccionesSesion}>
-                <button style={StylesNavH.accion} onClick={() => navigate('/')}>
+                <button style={StylesNavH.accion} onClick={() => navigate('/perfil')}>
                     <img style={StylesNavH.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
                     <span style={StylesNavH.usuario}>Nombre Apellido</span>  
                 </button>
@@ -57,5 +57,6 @@ const StylesNavH = {
     contenedorLogo: {
         display: 'flex',
         marginLeft: '25px',
+        pointer: 'cursor',
     }
 };

@@ -2,23 +2,31 @@ import React from "react";
 import colors from "../constants/colors";
 import logo from '../assets/logo_capnee_white.png'; 
 import iconoUsuario from '../assets/icon-user.png'; 
+import iconoSalir from '../assets/icon-salir.png';
 import iconoCurso from '../assets/icon-book.png'; 
+import { useNavigate } from 'react-router-dom';
 
 export default function NavVertical() {  
+    const navigate = useNavigate();
+
     return (
         <div style={stylesNavV.contenedor}>
             <div style={stylesNavV.contenedorLogo}>
                 <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
-            <div>
-                <div style={stylesNavV.contenedorUsuario}>
+            <div style={stylesNavV.acciones}>
+                <button style={stylesNavV.accion} onClick={() => navigate('/gestionalumnos')}>
                     <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
                     <span style={stylesNavV.usuario}>Curso y división</span>  
-                </div>
-                <div style={stylesNavV.contenedorCurso}>
+                </button>
+                <button style={stylesNavV.accion} onClick={() => navigate('/perfil')}>
                     <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
                     <span style={stylesNavV.usuario}>Nombre Apellido</span>  
-                </div>
+                </button>
+                <button style={stylesNavV.accion} onClick={() => navigate('/')}>
+                    <img style={stylesNavV.icono} src={iconoSalir} alt="Ícono de usuario" /> 
+                    <span style={stylesNavV.usuario}>Cerrar sesión</span>  
+                </button>
             </div>
         </div>
     );
@@ -46,19 +54,22 @@ const stylesNavV = {
     },
     contenedorLogo: {
         display: 'flex',
-        alignItems: 'center', // Centra verticalmente el logo
+        alignItems: 'center',
         marginTop:'30px',
     },
-    contenedorUsuario: {
+    acciones: {
         display: 'flex',
-        alignItems: 'center', 
+        alignItems: 'center',
+        justifyContent:'center',
+        flexDirection: 'column',
         marginBottom: '10px',
         width: '100%',
     },
-    contenedorCurso: {
+    accion: {
         display: 'flex',
         alignItems: 'center', 
-        marginBottom: '30px',
+        justifyContent:'center',
+        marginBottom: '10px',
         width: '100%',
     },
     logo: {

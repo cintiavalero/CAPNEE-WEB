@@ -9,19 +9,16 @@ import iconoEditar from '../assets/icon-editar.png';
 import iconoEliminar from '../assets/icon-trash.png'; 
 import ModalChico from "../components/ModalChico"; 
 import ModalMediano from "../components/ModalMediano"; 
-import ModalGrande from "../components/ModalGrande"; 
 import colors from "../constants/colors";
+import { useNavigate } from 'react-router-dom';
 
 
 function GestionAlumnos() {
+    const navigate = useNavigate();
 
     const [popupEditar, setPopupEditar] = useState(false);    
     const editar = () => { setPopupEditar(true); };
     const cancelarEditar = () => { setPopupEditar(false); };
-
-    const [popupVer, setPopupVer] = useState(false);    
-    const ver = () => { setPopupVer(true); };
-    const cancelarVer = () => { setPopupVer (false); };
 
     const [popupEliminar, setPopupEliminar] = useState(false);    
     const eliminar = () => { setPopupEliminar(true); };
@@ -30,6 +27,8 @@ function GestionAlumnos() {
     const [popupAgregar, setPopupAgregar] = useState(false);    
     const agregar = () => { setPopupAgregar(true); };
     const cancelarAgregar = () => { setPopupAgregar(false); };
+    
+
 
     return (
         <Fondo >
@@ -37,7 +36,7 @@ function GestionAlumnos() {
                 <Navbar/>
             </header>
             <body className="gestionAlumnos">
-                <h1 className="titulo">Gestión de alumnos: Año y division</h1>
+                <h1 className="titulo">Gestión de alumnos: 1°A - 2024</h1>
                 <div className="contenido">
                     <div className="listaAlumnos">
                         <article className="alumno">
@@ -52,7 +51,7 @@ function GestionAlumnos() {
                                 </div>
                             </div>
                             <div className="accionesAlumno">
-                                <button onClick={ver}>
+                                <button onClick={() => navigate('/gestionbloques')}>
                                     <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
                                     Progreso
                                 </button>
@@ -94,29 +93,30 @@ function GestionAlumnos() {
                 }
                 />
             )}
-            {popupVer && (
-              <ModalGrande 
-                titulo="Visualizar curso"
-                cerrar={cancelarVer} 
-                colorFondo={colors.verde} 
-                contenido={
-                    <>
-                        Está <b>Viendo</b>
-                    </>
-                }
-                />
-            )}
             {popupAgregar && (
               <ModalMediano 
-                titulo="Dar de alta un curso"
+                titulo="Agregar un curso nuevo"
                 cerrar={cancelarAgregar} 
-                colorFondo={colors.violeta} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
+                colorFondo={colors.violeta}
+              >
+                <div className="bodyModal">
+                  <div id="headAlumno" className="introduccion">
+                    <p>Para agregar un curso complete los siguientes datos:</p>
+                  </div>
+                  <form id="formAlumno">
+                    <div>
+                        <input placeholder="Nombre"/>
+                        <input placeholder="Usuario"/>
+                        <input placeholder="DNI"/>
+                    </div>
+                    <div>
+                        <input placeholder="Apellido"/>
+                        <input placeholder="Contraseña"/>
+                        <input placeholder="dd/mm/aa"/>
+                    </div>
+                  </form>
+                </div>
+              </ModalMediano>
             )}
         </Fondo>
     );
