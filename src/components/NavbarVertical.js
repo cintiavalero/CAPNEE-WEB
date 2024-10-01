@@ -11,17 +11,17 @@ export default function NavVertical() {
 
     return (
         <div style={stylesNavV.contenedor}>
-            <div style={stylesNavV.contenedorLogo}>
+            <div onClick={() => navigate('/listadocursos')} style={stylesNavV.contenedorLogo}>
                 <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
             <div style={stylesNavV.acciones}>
                 <button style={stylesNavV.accion} onClick={() => navigate('/gestionalumnos')}>
                     <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
-                    <span style={stylesNavV.usuario}>Curso y división</span>  
+                    <span style={stylesNavV.usuario}>1° A</span>  
                 </button>
                 <button style={stylesNavV.accion} onClick={() => navigate('/perfil')}>
                     <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
-                    <span style={stylesNavV.usuario}>Nombre Apellido</span>  
+                    <span style={stylesNavV.usuario}>Cintia Valero</span>  
                 </button>
                 <button style={stylesNavV.accion} onClick={() => navigate('/')}>
                     <img style={stylesNavV.icono} src={iconoSalir} alt="Ícono de usuario" /> 
@@ -74,5 +74,6 @@ const stylesNavV = {
     },
     logo: {
         height: '90px', 
+        cursor:'pointer',
         },
 };

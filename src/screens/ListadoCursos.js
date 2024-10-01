@@ -99,27 +99,27 @@ function ListadoCursos() {
                   </div>
                   <form id="formCurso">
                     <div className="input">
-                      <label>Nivel</label>
+                      <label>Año</label>
                       <select>
-                        <option value="" disabled selected>Seleccione</option>
-                        <option value="1">Nivel 1</option>
+                        <option value="" disabled>Seleccione</option>
+                        <option value="1" selected>Nivel 1</option>
                         <option value="2">Nivel 2</option>
                       </select>
                     </div>
                     <div className="input">
                       <label>División</label>
                       <select>
-                        <option value="" disabled selected>Seleccione</option>
-                        <option value="A">A</option>
+                        <option value="" disabled>Seleccione</option>
+                        <option value="A" selected>A</option>
                         <option value="B">B</option>
                       </select>
                     </div>
                     <div className="input">
                       <label>Ciclo Lectivo</label>
                       <select>
-                        <option value="" disabled selected>Seleccione</option>
+                        <option value="" disabled >Seleccione</option>
                         <option value="2023">2023</option>
-                        <option value="2024">2024</option>
+                        <option value="2024" selected>2024</option>
                       </select>
                     </div>
                   </form>
@@ -151,7 +151,7 @@ function ListadoCursos() {
                   </div>
                   <form id="formCurso">
                     <div className="input">
-                      <label>Nivel</label>
+                      <label>Año</label>
                       <select>
                         <option value="" disabled selected>Seleccione</option>
                         <option value="1">Nivel 1</option>
