@@ -90,52 +90,180 @@ function GestionEjercicios() {
             </body>
             {popupEliminar && (
               <ModalChico 
-                titulo="Dar de baja un curso"
+                titulo="Eliminar ejercicio"
                 cerrar={cancelarEliminar} 
-                colorFondo={colors.rojo} 
-                contenido={
-                    <>
-                        ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
-                    </>
-                }
-                />
-            )}
-            {popupEditar && (
-              <ModalMediano 
-                titulo="Editar un curso"
-                cerrar={cancelarEditar} 
-                colorFondo={colors.celesteOscuro} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
+                colorFondo={colors.rojo}
+              >
+                <div className="bodyModal">
+                    <p style={{padding:' 0 30px', textAlign:'left',}}>
+                    Se eliminará el ejercicio seleccionado y el progreso de los alumnos de este curso sobre el mismo.<br/>
+                    Si está seguro que desea eliminar el ejercicio haga clic en Aceptar
+                    </p>
+                </div>
+              </ModalChico>
             )}
             {popupVer && (
               <ModalGrande 
-                titulo="Visualizar curso"
+                titulo="Revisión de respuestas"
                 cerrar={cancelarVer} 
-                colorFondo={colors.verde} 
-                contenido={
-                    <>
-                        Está <b>Viendo</b>
-                    </>
-                }
-                />
+                colorFondo={colors.verde}
+              >
+                <div className="bodyModal">
+                <div id="headRespuestas" className="introduccion">
+                    <h3>Ejercicio 1: Quiz de números - 20/07/2024</h3>
+                </div>
+                
+                <div id="tablaRespuestas">
+                    <div class="tabla-header">
+                        <div>Alumno</div>
+                        <div>Resuelto</div>
+                        <div>Intentos</div>
+                        <div>Tiempo</div>
+                        <div>Calificación</div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Borsella Franco Ezequiel</div>
+                        <div>Sí</div>
+                        <div>1</div>
+                        <div>00:35</div>
+                        <div>5 <span class="estrella">⭐</span></div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Etcheverry Juan Ignacio</div>
+                        <div>Sí</div>
+                        <div>2</div>
+                        <div>00:50</div>
+                        <div>4 <span class="estrella">⭐</span></div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Batista Matías Omar</div>
+                        <div>No</div>
+                        <div>-</div>
+                        <div>-</div>
+                        <div>-</div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Valero Cintia Milagros</div>
+                        <div>Sí</div>
+                        <div>4</div>
+                        <div>01:24</div>
+                        <div>1 <span class="estrella">⭐</span></div>
+                    </div>
+                    </div>
+                </div>
+              </ModalGrande>
             )}
             {popupAgregar && (
-              <ModalMediano 
-                titulo="Dar de alta un curso"
-                cerrar={cancelarAgregar} 
-                colorFondo={colors.violeta} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
-            )}
+  <ModalGrande 
+    titulo="Agregar un ejercicio nuevo"
+    cerrar={cancelarAgregar} 
+    colorFondo={colors.violeta}
+  >
+    <div className="bodyModal">
+      <div id="headEjercicio" className="introduccion">
+        <p>Para agregar un ejercicio nuevo, complete los siguientes campos:</p>
+      </div>
+      <form id="formEjercicio">
+        <section>
+            <div className="inputGroup tituloInput">
+                <label>Título del ejercicio:</label>
+                <input type="text" placeholder="Ingrese un título..." />
+            </div>
+            <div className="inputGroup imagenInput">
+                <label>Imagen para la consigna:</label>
+                <button id="agregarImagen"> Agregar imagen </button>
+            </div>
+        </section>
+        <section>
+            <div className="inputGroup descripcionInput">
+                <label>Enunciado:</label>
+                <textarea placeholder="Descripción del ejercicio..."></textarea>
+            </div>
+
+            <div className="opcionesRespuesta">
+                <label>Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):</label>
+                <div className="opcion">
+                    <input type="radio" name="respuestaCorrecta" />
+                    <input type="text" placeholder="Opción 1" />
+                    <button className="eliminarOpcion">-</button>
+                </div>
+                <div className="opcion">
+                    <input type="radio" name="respuestaCorrecta" />
+                    <input type="text" placeholder="Opción 2" />
+                    <button className="eliminarOpcion">-</button>
+                </div>
+                <div className="opcion">
+                    <input type="radio" name="respuestaCorrecta" />
+                    <input type="text" placeholder="Opción 2" />
+                    <button className="eliminarOpcion">-</button>
+                </div>
+                <button className="agregarOpcion">+</button>
+            </div>
+        </section>
+        
+       
+      </form>
+    </div>
+  </ModalGrande>
+)}
+ {popupEditar && (
+  <ModalGrande 
+    titulo="Modificar ejercicio "
+    cerrar={cancelarEditar} 
+    colorFondo={colors.celesteOscuro}
+  >
+    <div className="bodyModal">
+      <div id="headEjercicio" className="introduccion">
+        <p>Está modificado el ejercicio: 1</p>
+      </div>
+      <form id="formEjercicio">
+        <section>
+            <div className="inputGroup tituloInput">
+                <label>Título del ejercicio:</label>
+                <input type="text" placeholder="Ingrese un título..." />
+            </div>
+            <div className="inputGroup imagenInput">
+                <label>Imagen para la consigna:</label>
+                <button id="agregarImagen"> Agregar imagen </button>
+            </div>
+        </section>
+        <section>
+            <div className="inputGroup descripcionInput">
+                <label>Enunciado:</label>
+                <textarea placeholder="Descripción del ejercicio..."></textarea>
+            </div>
+
+            <div className="opcionesRespuesta">
+                <label>Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):</label>
+                <div className="opcion">
+                    <input type="radio" name="respuestaCorrecta" />
+                    <input type="text" placeholder="Opción 1" />
+                    <button className="eliminarOpcion">-</button>
+                </div>
+                <div className="opcion">
+                    <input type="radio" name="respuestaCorrecta" />
+                    <input type="text" placeholder="Opción 2" />
+                    <button className="eliminarOpcion">-</button>
+                </div>
+                <div className="opcion">
+                    <input type="radio" name="respuestaCorrecta" />
+                    <input type="text" placeholder="Opción 2" />
+                    <button className="eliminarOpcion">-</button>
+                </div>
+                <button className="agregarOpcion">+</button>
+            </div>
+        </section>
+        
+       
+      </form>
+    </div>
+  </ModalGrande>
+)}
+
         </Fondo>
     );
 }
