@@ -4,6 +4,11 @@ import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionBloques.css";
 import numerosNaturales from '../assets/bloque-numerosNaturales.png'; 
+import operacioesConN from '../assets/bloque-operacionesconN.png'; 
+import medida from '../assets/bloque-medida.png'; 
+import geometria from '../assets/bloque-geometria.png'; 
+import espacio from '../assets/bloque-espacio.png'; 
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -30,18 +35,34 @@ function GestionBloques() {
                         </article>
                         <article className="bloque">
                             <div className="imagenBloque">
-                                <img src={numerosNaturales} alt="Números naturales" /> 
+                                <img src={operacioesConN} alt="Operaciones con N" /> 
                             </div>
                             <div className="tituloBloque">
-                               <p>Números naturales</p>
+                               <p>Operaciones con números naturales</p>
                             </div>
                         </article>
                         <article className="bloque">
                             <div className="imagenBloque">
-                                <img src={numerosNaturales} alt="Números naturales" /> 
+                                <img src={medida} alt="Medida" /> 
                             </div>
                             <div className="tituloBloque">
-                               <p>Números naturales</p>
+                               <p>Medida</p>
+                            </div>
+                        </article>
+                        <article className="bloque">
+                            <div className="imagenBloque">
+                                <img src={geometria} alt="Geometria" /> 
+                            </div>
+                            <div className="tituloBloque">
+                               <p>Geometría</p>
+                            </div>
+                        </article>
+                        <article className="bloque">
+                            <div className="imagenBloque">
+                                <img src={espacio} alt="espacio" /> 
+                            </div>
+                            <div className="tituloBloque">
+                               <p>Espacio</p>
                             </div>
                         </article>
                     </div>
