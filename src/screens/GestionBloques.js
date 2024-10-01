@@ -4,8 +4,12 @@ import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionBloques.css";
 import numerosNaturales from '../assets/numerosNaturales.png'; 
+import { useNavigate } from 'react-router-dom';
+
 
 function GestionBloques() {
+    const navigate = useNavigate();
+
     return (
         <Fondo >
             <div className="header-vertical">
@@ -16,7 +20,7 @@ function GestionBloques() {
                 <h2>Por favor, seleccione un bloque temático</h2>
                 <div className="contenido">
                     <div className="listaBloques">
-                        <article className="bloque">
+                        <article className="bloque" onClick={() => navigate('/gestionsubbloques')}>
                             <div className="imagenBloque">
                                 <img src={numerosNaturales} alt="Números naturales" /> 
                             </div>

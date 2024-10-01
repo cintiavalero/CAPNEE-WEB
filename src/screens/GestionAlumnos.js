@@ -71,27 +71,42 @@ function GestionAlumnos() {
             </body>
             {popupEliminar && (
               <ModalChico 
-                titulo="Dar de baja un curso"
+                titulo="Dar de baja un alumno"
                 cerrar={cancelarEliminar} 
-                colorFondo={colors.rojo} 
-                contenido={
-                    <>
-                        ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
-                    </>
-                }
-                />
+                colorFondo={colors.rojo}
+              >
+                <div className="bodyModal">
+                    <p style={{padding:' 0 30px', textAlign:'left',}}>
+                    Se eliminará el progreso y las actividades realizadas por el alumno.<br/>
+                    Si está seguro que desea desvincular a <b> Cintia Valero de 1° A</b> haga clic en Aceptar
+                    </p>
+                </div>
+              </ModalChico>
             )}
             {popupEditar && (
-              <ModalMediano 
+                <ModalMediano 
                 titulo="Editar un curso"
                 cerrar={cancelarEditar} 
                 colorFondo={colors.celesteOscuro} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
+                >
+                    <div className="bodyModal">
+                  <div id="headAlumno" className="introduccion">
+                    <p>Estás modificando los datos del alumno: <b>Alumno</b></p>
+                  </div>
+                  <form id="formAlumno">
+                    <div>
+                        <input placeholder="Nombre"/>
+                        <input placeholder="Usuario"/>
+                        <input placeholder="DNI"/>
+                    </div>
+                    <div>
+                        <input placeholder="Apellido"/>
+                        <input placeholder="Contraseña"/>
+                        <input placeholder="dd/mm/aa"/>
+                    </div>
+                  </form>
+                </div>
+                </ModalMediano>
             )}
             {popupAgregar && (
               <ModalMediano 

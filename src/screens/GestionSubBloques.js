@@ -4,8 +4,10 @@ import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionSubBloques.css";
 import conocerNumeros from '../assets/numerosNaturales-usarYConocerLosNumeros.png'; 
+import { useNavigate } from 'react-router-dom';
 
 function GestionSubBloques() {
+    const navigate = useNavigate();
     return (
         <Fondo >
             <div className="header-vertical">
@@ -16,7 +18,7 @@ function GestionSubBloques() {
                 <h2>Números naturales: seleccione un tema</h2>
                 <div className="contenido">
                     <div className="listaBloques">
-                        <article className="bloque">
+                        <article className="bloque" onClick={() => navigate('/gestionactividades')}>
                             <div className="imagenBloque">
                                 <img src={conocerNumeros} alt="Números naturales" /> 
                             </div>

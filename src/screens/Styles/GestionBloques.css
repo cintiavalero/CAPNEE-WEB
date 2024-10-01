@@ -22,6 +22,7 @@
 }
 
 .gestionBloques .bloque {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,6 +33,7 @@
     background-color: var(--blanco);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .gestionBloques .imagenBloque {
     display: flex;
     align-items: center;

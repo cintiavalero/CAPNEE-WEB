@@ -4,8 +4,12 @@ import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionActividades.css";
 import iconoEjercicio from '../assets/icon-book.png'; 
+import { useNavigate } from 'react-router-dom';
+
 
 function GestionActividades() {
+    const navigate = useNavigate();
+
     return (
         <Fondo >
             <div className="header-vertical">
@@ -16,7 +20,7 @@ function GestionActividades() {
                 <h2>Usar y conocer los números: Selecione una actividad</h2>
                 <div className="contenido">
                     <div className="listaActividades">
-                        <article className="actividad">
+                        <article className="actividad" onClick={() => navigate('/gestionejercicios')}>
                             <p>Contextos y uso social de los números</p>
                             <div className="cantidadEjercicios">
                                 <img src={iconoEjercicio} alt="Icono de libro"/> 
