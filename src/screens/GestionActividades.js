@@ -24,7 +24,7 @@ function GestionActividades() {
                             <p>Contextos y uso social de los números</p>
                             <div className="cantidadEjercicios">
                                 <img src={iconoEjercicio} alt="Icono de libro"/> 
-                                <p>Ejercicios: 1</p>
+                                <p>Ejercicios: 3</p>
                             </div>
                         </article>
                     </div>

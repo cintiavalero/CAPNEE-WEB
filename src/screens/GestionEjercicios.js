@@ -43,7 +43,7 @@ function GestionEjercicios() {
                     <p id="cantidadEjercicios"><b> Cantidad de ejercicios cargados: 3</b></p>
                     <div className="listaEjercicios">
                         <article className="ejercicio">
-                            <p> <b> Ejercicio 1: </b> Quiz números II - 24/07/2024</p>
+                            <p> <b> Ejercicio 1: </b> Quiz números I - 24/07/2024</p>
                             <div className="accionesEjercicio">
                                 <button  onClick={ver}>
                                     <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
@@ -71,7 +71,7 @@ function GestionEjercicios() {
                             </div>
                         </article>
                         <article className="ejercicio">
-                            <p><b> Ejercicio 3: </b>Quiz números II - 24/07/2024</p>
+                            <p><b> Ejercicio 3: </b>Quiz números III - 24/07/2024</p>
                             <div className="accionesEjercicio">
                                 <button  onClick={ver}>
                                     <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
