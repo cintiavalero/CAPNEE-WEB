@@ -6,7 +6,7 @@ const colors = {
     celesteOscuro: '#27ABCE',
     violetaClaro: '#EDE4FC',
     violeta: '#b28cf6',
-    violetaOscuro: '#7902B0',
+    violetaOscuro: '#8b54eb',
     verde: '#90d58f',
     rojo: '#fc5f72',
     amarillo: '#fee877',

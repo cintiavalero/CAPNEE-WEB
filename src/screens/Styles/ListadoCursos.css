@@ -65,11 +65,11 @@
     color: var(--violeta);
 }
 
-#headAltaCurso {
+#headCurso {
     text-align: left;
 }
 
-#formAltaCurso {
+#formCurso {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,18 +79,18 @@
     flex-grow: 1;
 }
 
-#formAltaCurso .input {
+#formCurso .input {
     width: 60%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 5px;
 }
-#formAltaCurso .input label {
+#formCurso .input label {
     font-weight: bold;
 }
 
-#formAltaCurso select {
+#formCurso select {
     padding: 10px;
     border: 1px solid #a4a0a9;
     border-radius: 5px;

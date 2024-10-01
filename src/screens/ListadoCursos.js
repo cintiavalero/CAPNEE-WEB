@@ -10,6 +10,7 @@ import "./general.css";
 import iconoFlecha from '../assets/icon-flecha.png'; 
 import iconoEditar from '../assets/icon-editar.png'; 
 import iconoEliminar from '../assets/icon-trash.png'; 
+import construccion from '../assets/contruccion.png'; 
 import colors from "../constants/colors";
 import { useNavigate } from 'react-router-dom';
 
@@ -80,7 +81,9 @@ function ListadoCursos() {
                 colorFondo={colors.rojo}
               >
                 <div className="bodyModal">
-                    ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
+                    <p>
+                      ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
+                      </p>
                 </div>
               </ModalChico>
             )}
@@ -90,8 +93,36 @@ function ListadoCursos() {
                 cerrar={cancelarEditar} 
                 colorFondo={colors.celesteOscuro}
             >
-                <div className="bodyModal">
-                    Está <b id="prueba">Editando</b>
+            <div className="bodyModal">
+                  <div id="headCurso" className="introduccion">
+                    <p>Está modificando los datos del curso:<b> 1° A</b></p>
+                  </div>
+                  <form id="formCurso">
+                    <div className="input">
+                      <label>Nivel</label>
+                      <select>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="1">Nivel 1</option>
+                        <option value="2">Nivel 2</option>
+                      </select>
+                    </div>
+                    <div className="input">
+                      <label>División</label>
+                      <select>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                      </select>
+                    </div>
+                    <div className="input">
+                      <label>Ciclo Lectivo</label>
+                      <select>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                      </select>
+                    </div>
+                  </form>
                 </div>
               </ModalMediano>
             )}
@@ -102,52 +133,51 @@ function ListadoCursos() {
                 colorFondo={colors.verde}
               >
                 <div className="bodyModal">
-                    <p>1° Ingrese la cantidad de alumnos</p>
-                    <input type="number"></input>
-                    <p>2° Agregue los datos de los alumnos correspondientes a este curso</p>
+                    <h1>En construcción</h1>
+                    <img id="contruccion" src={construccion} alt="contruccion" />
                 </div>
               </ModalGrande>
             )}
-        {popupAgregar && (
-  <ModalMediano 
-    titulo="Agregar un curso nuevo"
-    cerrar={cancelarAgregar} 
-    colorFondo={colors.violeta}
-    aceptar={listaAlumnos}
-  >
-    <div className="bodyModal">
-      <div id="headAltaCurso" className="introduccion">
-        <p>Para agregar un curso complete los siguientes datos:</p>
-      </div>
-      <form id="formAltaCurso">
-        <div className="input">
-          <label>Nivel</label>
-          <select>
-            <option value="" disabled selected>Seleccione</option>
-            <option value="1">Nivel 1</option>
-            <option value="2">Nivel 2</option>
-          </select>
-        </div>
-        <div className="input">
-          <label>División</label>
-          <select>
-            <option value="" disabled selected>Seleccione</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-          </select>
-        </div>
-        <div className="input">
-          <label>Ciclo Lectivo</label>
-          <select>
-            <option value="" disabled selected>Seleccione</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-          </select>
-        </div>
-      </form>
-    </div>
-  </ModalMediano>
-)}
+            {popupAgregar && (
+              <ModalMediano 
+                titulo="Agregar un curso nuevo"
+                cerrar={cancelarAgregar} 
+                colorFondo={colors.violeta}
+                aceptar={listaAlumnos}
+              >
+                <div className="bodyModal">
+                  <div id="headCurso" className="introduccion">
+                    <p>Para agregar un curso complete los siguientes datos:</p>
+                  </div>
+                  <form id="formCurso">
+                    <div className="input">
+                      <label>Nivel</label>
+                      <select>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="1">Nivel 1</option>
+                        <option value="2">Nivel 2</option>
+                      </select>
+                    </div>
+                    <div className="input">
+                      <label>División</label>
+                      <select>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                      </select>
+                    </div>
+                    <div className="input">
+                      <label>Ciclo Lectivo</label>
+                      <select>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                      </select>
+                    </div>
+                  </form>
+                </div>
+              </ModalMediano>
+            )}
         </Fondo>
     );
 }

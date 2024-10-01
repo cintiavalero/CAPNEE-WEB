@@ -15,7 +15,7 @@ const styles = {
         display:'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.celesteOscuro,
+        backgroundColor: colors.gris,
         color: colors.blanco, 
         border: 'none',
         borderRadius: '5px',

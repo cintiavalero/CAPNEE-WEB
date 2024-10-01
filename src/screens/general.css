@@ -22,7 +22,7 @@ label {
     font-size: 14px;
 }
 h1 {
-    color: var(--violetaOscuro);
+    color: var(--verdeOscuro);
     font-size: 30px;
     font-weight: bold;
     margin-top: 40px;
@@ -54,3 +54,6 @@ h2 {
     font-size: 14px;
 }
 
+#contruccion {
+    width: 30%;
+}
