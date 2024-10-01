@@ -3,7 +3,7 @@ import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionSubBloques.css";
-import conocerNumeros from '../assets/numerosNaturales-usarYConocerLosNumeros.png'; 
+import conocerNumeros from '../assets/subbloque1.png'; 
 import { useNavigate } from 'react-router-dom';
 
 function GestionSubBloques() {

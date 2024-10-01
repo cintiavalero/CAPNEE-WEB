@@ -3,7 +3,7 @@ import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
 import "./general.css";
 import "./Styles/GestionBloques.css";
-import numerosNaturales from '../assets/numerosNaturales.png'; 
+import numerosNaturales from '../assets/bloque-numerosNaturales.png'; 
 import { useNavigate } from 'react-router-dom';
 
 
