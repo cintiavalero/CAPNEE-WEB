@@ -35,8 +35,7 @@ h2 {
 
 .bodyModal {
     display: 'flex';
-    justify-content: 'center';
-    align-items: 'center';
-    text-align: 'center';
-    width: 100%;
+    flex-direction: column;
+    background-color: aqua;
+    width: 100%;    
 }

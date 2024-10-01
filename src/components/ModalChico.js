@@ -10,7 +10,9 @@ export default function ModalChico({  cerrar, titulo, children, colorFondo, acep
             <p style={styles.titulo}>{titulo}</p>
             <button onClick={cerrar} style={{ ...styles.cerrar, backgroundColor: colorFondo || colors.rojo }}>X</button>
             </div>
+                <div style={styles.bodyModal}>
                     {children}
+                </div>
                 <div style={styles.footerModal}>
                     <Aceptar colorFondo={colorFondo} onClick={aceptar}/>
                 </div>
@@ -60,7 +62,11 @@ const styles = {
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-
+    bodyModal: {
+        display: 'flex',
+        flexGrow:'1',
+        width:'100%',
+    },
     footerModal: {
         display: 'flex',
         justifyContent: 'flex-end',

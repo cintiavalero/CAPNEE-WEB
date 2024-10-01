@@ -11,7 +11,9 @@ export default function ModalGrande({  cerrar, titulo, children, colorFondo, ace
             <p style={styles.titulo}>{titulo}</p>
             <button onClick={cerrar} style={{ ...styles.cerrar, backgroundColor: colorFondo || colors.violeta }}>X</button>
             </div>
-                {children}
+                <div style={styles.bodyModal}>
+                    {children}
+                </div>
                 <div style={styles.footerModal}>
                     <Guardar onClick={guardar}/>
                     <Aceptar colorFondo={colorFondo} onClick={aceptar}/>
@@ -63,6 +65,11 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    bodyModal: {
+        display: 'flex',
+        flexGrow:'1',
+        width:'100%',
     },
     footerModal: {
         display: 'flex',

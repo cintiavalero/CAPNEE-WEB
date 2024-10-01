@@ -11,8 +11,17 @@ import iconoFlecha from '../assets/icon-flecha.png';
 import iconoEditar from '../assets/icon-editar.png'; 
 import iconoEliminar from '../assets/icon-trash.png'; 
 import colors from "../constants/colors";
+import { useNavigate } from 'react-router-dom';
+
 
 function ListadoCursos() {
+
+    const navigate = useNavigate();
+
+    const handleAlumnos = (e) => {
+      e.preventDefault();
+        navigate('/gestionalumnos')
+    };
 
     const [popupEditar, setPopupEditar] = useState(false);    
     const editar = () => { setPopupEditar(true); };
@@ -46,7 +55,7 @@ function ListadoCursos() {
                         <article className="curso">
                             <p id="añoDivision">1°A</p>
                             <div className="accionesCurso">
-                                <button>
+                                <button onClick={handleAlumnos}>
                                     <img className="icono" src={iconoFlecha} alt="Ícono flecha" />
                                     Ver curso
                                 </button>
@@ -107,7 +116,7 @@ function ListadoCursos() {
                 aceptar={listaAlumnos}
               >
                 <div className="bodyModal">
-                    <p>Para agregar un curso complete los siguientes datos</p>
+                    <p id="tituloAltaCurso">Para agregar un curso complete los siguientes datos</p>
                     <form id="formAltaCurso">
                         <div className="input">
                             <label>Nivel</label>
