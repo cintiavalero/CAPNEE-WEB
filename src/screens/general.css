@@ -18,7 +18,9 @@ button {
     background: none;
     cursor: pointer;
 }
-
+label {
+    font-size: 14px;
+}
 h1 {
     color: var(--violetaOscuro);
     font-size: 30px;
@@ -34,8 +36,21 @@ h2 {
 }
 
 .bodyModal {
-    display: 'flex';
+    display: flex;
     flex-direction: column;
-    background-color: aqua;
+    justify-content: center;
+    align-items: center;
     width: 100%;    
+    padding: 0;
+    flex-grow: 1;
 }
+
+.bodyModal .introduccion {
+    margin: 0;
+    padding: 0 20px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+}
+

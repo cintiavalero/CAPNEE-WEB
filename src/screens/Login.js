@@ -28,7 +28,7 @@ function Login() {
 
   return (
     <Fondo>
-      <div className="login-container">
+      <div className="login">
         <div className="login-box">
           <img className="logo" src={logo} alt="CAPNEE Logo" />                                     
           <h3>Iniciar Sesión</h3>

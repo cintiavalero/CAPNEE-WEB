@@ -5,8 +5,8 @@ import Agregar from "../components/BotonAgregar";
 import ModalChico from "../components/ModalChico"; 
 import ModalMediano from "../components/ModalMediano"; 
 import ModalGrande from "../components/ModalGrande"; 
-import "./general.css";
 import "./Styles/ListadoCursos.css";
+import "./general.css";
 import iconoFlecha from '../assets/icon-flecha.png'; 
 import iconoEditar from '../assets/icon-editar.png'; 
 import iconoEliminar from '../assets/icon-trash.png'; 
@@ -108,32 +108,46 @@ function ListadoCursos() {
                 </div>
               </ModalGrande>
             )}
-            {popupAgregar && (
-              <ModalMediano 
-                titulo="Agregar un curso nuevo"
-                cerrar={cancelarAgregar} 
-                colorFondo={colors.violeta}
-                aceptar={listaAlumnos}
-              >
-                <div className="bodyModal">
-                    <p id="tituloAltaCurso">Para agregar un curso complete los siguientes datos</p>
-                    <form id="formAltaCurso">
-                        <div className="input">
-                            <label>Nivel</label>
-                            <input type="text" />
-                        </div>
-                        <div className="input">
-                            <label>División</label>
-                            <input type="text" />
-                        </div>
-                        <div className="input">
-                            <label>Ciclo lectivo</label>
-                            <input type="text" />
-                        </div>
-                    </form>
-                </div>
-              </ModalMediano>
-            )}
+        {popupAgregar && (
+  <ModalMediano 
+    titulo="Agregar un curso nuevo"
+    cerrar={cancelarAgregar} 
+    colorFondo={colors.violeta}
+    aceptar={listaAlumnos}
+  >
+    <div className="bodyModal">
+      <div id="headAltaCurso" className="introduccion">
+        <p>Para agregar un curso complete los siguientes datos:</p>
+      </div>
+      <form id="formAltaCurso">
+        <div className="input">
+          <label>Nivel</label>
+          <select>
+            <option value="" disabled selected>Seleccione</option>
+            <option value="1">Nivel 1</option>
+            <option value="2">Nivel 2</option>
+          </select>
+        </div>
+        <div className="input">
+          <label>División</label>
+          <select>
+            <option value="" disabled selected>Seleccione</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+          </select>
+        </div>
+        <div className="input">
+          <label>Ciclo Lectivo</label>
+          <select>
+            <option value="" disabled selected>Seleccione</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </ModalMediano>
+)}
         </Fondo>
     );
 }

@@ -9,7 +9,7 @@
 }
 
 /* Fondo y contenedor */
-.login-container {
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +18,7 @@
     text-align: center;
 }
 
-.login-box {
+.login .login-box {
     background-color: var(--blanco);
     padding: 40px;
     border-radius: 10px;
@@ -26,11 +26,11 @@
     width: 320px;
 }
 
-.logo {
+.login .logo {
     width: 200px;
 }
 
-h3{
+.login h3{
     font-size: 15px;
     color: #333;
     text-align: left;
@@ -39,19 +39,19 @@ h3{
 }
 
 /* Campos de formulario */
-.input-group {
+.login .input-group {
     margin-bottom: 20px;
     text-align: left;
 }
 
-label {
+.login label {
     display: block;
     font-size: 14px;
     color: var(--violeta);
     margin-bottom: 5px;
 }
 
-input[type="text"], input[type="password"] {
+.login input[type="text"], .login input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -60,7 +60,7 @@ input[type="text"], input[type="password"] {
 }
 
 /* Botón */
-.login-btn {
+.login .login-btn {
     background-color: var(--violeta);
     color: white;
     padding: 10px;
@@ -71,13 +71,13 @@ input[type="text"], input[type="password"] {
     cursor: pointer;
 }
 
-.login-btn:hover {
+.login .login-btn:hover {
     background-color: var(--violetaOscuro);
 
 }
 
 /* Footer */
-.footer {
+.login .footer {
     margin-top: 20px;
     font-size: 14px;
     color: #666;

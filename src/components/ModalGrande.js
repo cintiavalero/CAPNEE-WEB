@@ -56,6 +56,8 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        boxshadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+
     },
     headerModal: {
         borderRadius: '10px 10px 0 0',
