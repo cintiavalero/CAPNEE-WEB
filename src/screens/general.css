@@ -32,3 +32,11 @@ h2 {
     font-size: 18px;
     font-weight: normal;
 }
+
+.bodyModal {
+    display: 'flex';
+    justify-content: 'center';
+    align-items: 'center';
+    text-align: 'center';
+    width: 100%;
+}

@@ -1,8 +1,8 @@
 import React from "react";
 import colors from "../constants/colors";
-import Aceptar from "./BotonAceptar"; // Asegúrate de que la ruta sea correcta
+import Aceptar from "./BotonAceptar"; 
 
-export default function ModalMediano({  cerrar, titulo, contenido, colorFondo  }) {  
+export default function ModalMediano({  cerrar, titulo, children, colorFondo, aceptar }) {  
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
@@ -10,11 +10,9 @@ export default function ModalMediano({  cerrar, titulo, contenido, colorFondo  }
                     <p style={styles.titulo}>{titulo}</p>
                     <button onClick={cerrar} style={{ ...styles.cerrar, backgroundColor: colorFondo || colors.celesteOscuro }}>X</button>
                 </div>
-                <div style={styles.bodyModal}>
-                    <p>{contenido}</p>
-                </div>
+                {children}
                 <div style={styles.footerModal}>
-                    <Aceptar colorFondo={colorFondo}/>
+                    <Aceptar onClick={aceptar} colorFondo={colorFondo}/>
                 </div>
             </div>
         </div>
@@ -62,12 +60,6 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    bodyModal: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
     },
     footerModal: {
         display: 'flex',

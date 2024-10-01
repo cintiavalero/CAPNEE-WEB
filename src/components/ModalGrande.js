@@ -3,7 +3,7 @@ import colors from "../constants/colors";
 import Aceptar from "./BotonAceptar";
 import Guardar from "./BotonGuardar";
 
-export default function ModalGrande({  cerrar, titulo, contenido, colorFondo  }) {  
+export default function ModalGrande({  cerrar, titulo, children, colorFondo, aceptar, guardar  }) {  
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
@@ -11,12 +11,10 @@ export default function ModalGrande({  cerrar, titulo, contenido, colorFondo  })
             <p style={styles.titulo}>{titulo}</p>
             <button onClick={cerrar} style={{ ...styles.cerrar, backgroundColor: colorFondo || colors.violeta }}>X</button>
             </div>
-                <div style={styles.bodyModal}>
-                <p>{contenido}</p>
-                </div>
+                {children}
                 <div style={styles.footerModal}>
-                    <Guardar/>
-                    <Aceptar colorFondo={colorFondo}/>
+                    <Guardar onClick={guardar}/>
+                    <Aceptar colorFondo={colorFondo} onClick={aceptar}/>
                 </div>
             </div>
         </div>
@@ -65,12 +63,6 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    bodyModal: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
     },
     footerModal: {
         display: 'flex',

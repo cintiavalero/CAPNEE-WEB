@@ -2,7 +2,7 @@ import React from "react";
 import colors from "../constants/colors";
 import Aceptar from "./BotonAceptar";
 
-export default function ModalChico({  cerrar, titulo, contenido, colorFondo  }) { 
+export default function ModalChico({  cerrar, titulo, children, colorFondo, aceptar }) { 
     return (
         <div style={styles.fondo}>
             <div style={styles.contenedorModal}>
@@ -10,11 +10,9 @@ export default function ModalChico({  cerrar, titulo, contenido, colorFondo  }) 
             <p style={styles.titulo}>{titulo}</p>
             <button onClick={cerrar} style={{ ...styles.cerrar, backgroundColor: colorFondo || colors.rojo }}>X</button>
             </div>
-                <div style={styles.bodyModal}>
-                    <p>{contenido}</p>
-                </div>
+                    {children}
                 <div style={styles.footerModal}>
-                    <Aceptar colorFondo={colorFondo} />
+                    <Aceptar colorFondo={colorFondo} onClick={aceptar}/>
                 </div>
             </div>
         </div>
@@ -62,12 +60,7 @@ const styles = {
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    bodyModal: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-    },
+
     footerModal: {
         display: 'flex',
         justifyContent: 'flex-end',

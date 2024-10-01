@@ -18,10 +18,6 @@ function ListadoCursos() {
     const editar = () => { setPopupEditar(true); };
     const cancelarEditar = () => { setPopupEditar(false); };
 
-    const [popupVer, setPopupVer] = useState(false);    
-    const ver = () => { setPopupVer(true); };
-    const cancelarVer = () => { setPopupVer (false); };
-
     const [popupEliminar, setPopupEliminar] = useState(false);    
     const eliminar = () => { setPopupEliminar(true); };
     const cancelarEliminar = () => { setPopupEliminar(false); };
@@ -29,6 +25,13 @@ function ListadoCursos() {
     const [popupAgregar, setPopupAgregar] = useState(false);    
     const agregar = () => { setPopupAgregar(true); };
     const cancelarAgregar = () => { setPopupAgregar(false); };
+
+    const [popupAlumnos, setPopupAlumnos] = useState(false);    
+    const listaAlumnos = () => { 
+        setPopupAgregar(false);
+        setPopupAlumnos(true);
+    };
+    const cancelarAlumnos = () => { setPopupAlumnos(false); };
 
     return (
         <Fondo>
@@ -43,7 +46,7 @@ function ListadoCursos() {
                         <article className="curso">
                             <p id="añoDivision">1°A</p>
                             <div className="accionesCurso">
-                                <button onClick={ver}>
+                                <button>
                                     <img className="icono" src={iconoFlecha} alt="Ícono flecha" />
                                     Ver curso
                                 </button>
@@ -65,49 +68,62 @@ function ListadoCursos() {
               <ModalChico 
                 titulo="Dar de baja un curso"
                 cerrar={cancelarEliminar} 
-                colorFondo={colors.rojo} 
-                contenido={
-                    <>
-                        ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
-                    </>
-                }
-                />
+                colorFondo={colors.rojo}
+              >
+                <div className="bodyModal">
+                    ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
+                </div>
+              </ModalChico>
             )}
             {popupEditar && (
               <ModalMediano 
                 titulo="Editar un curso"
                 cerrar={cancelarEditar} 
-                colorFondo={colors.celesteOscuro} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
+                colorFondo={colors.celesteOscuro}
+            >
+                <div className="bodyModal">
+                    Está <b id="prueba">Editando</b>
+                </div>
+              </ModalMediano>
             )}
-            {popupVer && (
+            {popupAlumnos && (
               <ModalGrande 
-                titulo="Visualizar curso"
-                cerrar={cancelarVer} 
-                colorFondo={colors.verde} 
-                contenido={
-                    <>
-                        Está <b>Viendo</b>
-                    </>
-                }
-                />
+                titulo="Curso nuevo: Lista de alumnos"
+                cerrar={cancelarAlumnos} 
+                colorFondo={colors.verde}
+              >
+                <div className="bodyModal">
+                    <p>1° Ingrese la cantidad de alumnos</p>
+                    <input type="number"></input>
+                    <p>2° Agregue los datos de los alumnos correspondientes a este curso</p>
+                </div>
+              </ModalGrande>
             )}
             {popupAgregar && (
               <ModalMediano 
-                titulo="Dar de alta un curso"
+                titulo="Agregar un curso nuevo"
                 cerrar={cancelarAgregar} 
-                colorFondo={colors.violeta} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
+                colorFondo={colors.violeta}
+                aceptar={listaAlumnos}
+              >
+                <div className="bodyModal">
+                    <p>Para agregar un curso complete los siguientes datos</p>
+                    <form id="formAltaCurso">
+                        <div className="input">
+                            <label>Nivel</label>
+                            <input type="text" />
+                        </div>
+                        <div className="input">
+                            <label>División</label>
+                            <input type="text" />
+                        </div>
+                        <div className="input">
+                            <label>Ciclo lectivo</label>
+                            <input type="text" />
+                        </div>
+                    </form>
+                </div>
+              </ModalMediano>
             )}
         </Fondo>
     );
