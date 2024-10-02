@@ -26,7 +26,7 @@
     align-items: center;
     border-radius: 10px;
     height: 60px; width: 100%;
-    background-color: var(--celeste);
+    background-color: var(--blanco);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0 20px;
 }
@@ -44,3 +44,176 @@
     margin: 0;
     margin-top: 35px;
 }
+
+  #formEjercicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width:80%;
+    flex-grow: 1;
+  }
+  #formEjercicio section{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  #formEjercicio .inputGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 5px;
+    width: 100%;
+  }
+  
+  #formEjercicio .inputGroup label {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  #formEjercicio .inputGroup input,
+  #formEjercicio .inputGroup textarea {
+    padding: 10px;
+    border: 1px solid #a4a0a9;
+    border-radius: 5px;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+  }
+  #formEjercicio .tituloInput {
+    display: flex;
+    flex-grow: 1;
+  }
+  #formEjercicio .imagenInput {
+        width: 35%;
+  }
+  #formEjercicio .descripcionInput {
+    width: 300px;
+  }
+  #formEjercicio #agregarImagen {
+    background-color: #e3e3e3;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  #formEjercicio .opcionesRespuesta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-grow: 1;
+  }
+  #formEjercicio .opcionesRespuesta label{
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  #formEjercicio .opcion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #formEjercicio .opcion input[type="text"] {
+    flex: 1;
+    height: 13px;
+    padding: 10px;
+  }
+  
+  #formEjercicio .eliminarOpcion {
+    background-color: #e3e3e3;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: black;
+    font-size: 18px;
+  }
+  
+  #formEjercicio .agregarOpcion {
+    background-color: #b28cf6;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 15px;
+    align-self: flex-start;
+  }
+  
+  #formEjercicio .textoVerde {
+    color: green;
+  }
+  
+
+
+#headRespuestas{
+    text-align: center;
+    font-size: 20px;
+}
+  #tablaRespuestas {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 30px;
+  }
+  
+ #tablaRespuestas  .tabla-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    background-color: #b28cf6;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  #tablaRespuestas .tabla-fila {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  #tablaRespuestas .tabla-fila:last-child {
+    border-bottom: none;
+  }
+  
+ #tablaRespuestas  .tabla-fila div {
+    display: flex;
+    align-items: center;
+  }
+  
+#tablaRespuestas   .estrella {
+    color: #FFD700; /* Color de la estrella dorada */
+    font-size: 1.2em;
+    margin-left: 5px;
+  }
+  
+  /* Estilos responsivos para pantallas más pequeñas */
+  @media (max-width: 768px) {
+  #tablaRespuestas   .tabla-header, .tabla-fila {
+      grid-template-columns: 1fr 1fr;
+    }
+  
+   #tablaRespuestas  .tabla-header div:nth-child(3),
+   #tablaRespuestas  .tabla-fila div:nth-child(3),
+    #tablaRespuestas .tabla-header div:nth-child(4),
+    #tablaRespuestas .tabla-fila div:nth-child(4),
+    #tablaRespuestas .tabla-header div:nth-child(5),
+   #tablaRespuestas  .tabla-fila div:nth-child(5) {
+      display: none;
+    }
+  }
+  

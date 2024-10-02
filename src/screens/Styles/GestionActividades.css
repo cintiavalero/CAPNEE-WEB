@@ -22,12 +22,13 @@
 }
 
 .gestionActividades .actividad {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     height: 80px; width: 100%;
-    background-color: var(--celeste);
+    background-color: var(--verde);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 0 20px;
 }

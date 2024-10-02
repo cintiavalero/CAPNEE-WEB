@@ -42,12 +42,12 @@ function GestionAlumnos() {
                         <article className="alumno">
                             <div className="datosAlumno">
                                 <div className="datosUsuarioAlumno">
-                                    <p><b>Un nombre</b></p>
-                                    <small>Usuario: unusuario</small>
+                                    <p><b>Franco Borsella</b></p>
+                                    <small>Usuario: fborsella</small>
                                 </div>
                                 <div className="datosPersonalesAlumno">
                                     <p><b>DNI:</b>12312312</p>
-                                    <p><b>Nacimiento:</b>12/12/1231</p>
+                                    <p><b>Nacimiento:</b>01/10/2000</p>
                                 </div>
                             </div>
                             <div className="accionesAlumno">
@@ -71,27 +71,42 @@ function GestionAlumnos() {
             </body>
             {popupEliminar && (
               <ModalChico 
-                titulo="Dar de baja un curso"
+                titulo="Dar de baja un alumno"
                 cerrar={cancelarEliminar} 
-                colorFondo={colors.rojo} 
-                contenido={
-                    <>
-                        ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
-                    </>
-                }
-                />
+                colorFondo={colors.rojo}
+              >
+                <div className="bodyModal">
+                    <p style={{padding:' 0 30px', textAlign:'left',}}>
+                    Se eliminará el progreso y las actividades realizadas por el alumno.<br/>
+                    Si está seguro que desea desvincular a <b> Franco Borsella de 1° A</b> haga clic en Aceptar
+                    </p>
+                </div>
+              </ModalChico>
             )}
             {popupEditar && (
-              <ModalMediano 
+                <ModalMediano 
                 titulo="Editar un curso"
                 cerrar={cancelarEditar} 
                 colorFondo={colors.celesteOscuro} 
-                contenido={
-                    <>
-                        Está <b>Editanto</b>
-                    </>
-                }
-                />
+                >
+                    <div className="bodyModal">
+                  <div id="headAlumno" className="introduccion">
+                    <p>Estás modificando los datos del alumno: <b>Franco Borsella</b></p>
+                  </div>
+                  <form id="formAlumno">
+                    <div>
+                        <input placeholder="Nombre"/>
+                        <input placeholder="Usuario"/>
+                        <input placeholder="DNI"/>
+                    </div>
+                    <div>
+                        <input placeholder="Apellido"/>
+                        <input placeholder="Contraseña"/>
+                        <input placeholder="dd/mm/aa"/>
+                    </div>
+                  </form>
+                </div>
+                </ModalMediano>
             )}
             {popupAgregar && (
               <ModalMediano 
