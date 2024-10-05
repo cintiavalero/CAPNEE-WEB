@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Fondo from "../components/FondoB";
-import Navbar from "../components/NavbarHorizontal";
+import Navbar from "../components/NavbarVertical";
 import Agregar from "../components/BotonAgregar";
 import "./general.css";
 import "./Styles/GestionAlumnos.css";
@@ -32,9 +32,9 @@ function GestionAlumnos() {
 
     return (
         <Fondo >
-            <header>
+            <div className="header-vertical">
                 <Navbar/>
-            </header>
+            </div>
             <body className="gestionAlumnos">
                 <h1 className="titulo">Gestión de alumnos: 1°A - 2024</h1>
                 <div className="contenido">
@@ -51,9 +51,9 @@ function GestionAlumnos() {
                                 </div>
                             </div>
                             <div className="accionesAlumno">
-                                <button onClick={() => navigate('/gestionbloques')}>
+                                <button onClick={() => navigate('/perfil')}>
                                     <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
-                                    Progreso
+                                    Perfil
                                 </button>
                                 <button onClick={editar}>
                                     <img className="icono" src={iconoEditar} alt="Ícono editar" /> 

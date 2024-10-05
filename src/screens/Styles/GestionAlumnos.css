@@ -1,5 +1,10 @@
 @import 'colors.css';
 
+.gestionAlumnos {
+
+margin-left: 250px;
+width: calc(100% - 250px);
+}
 .gestionAlumnos .contenido {
     display: flex;
     flex-direction: column;
