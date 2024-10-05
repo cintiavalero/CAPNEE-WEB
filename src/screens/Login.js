@@ -3,28 +3,39 @@ import Fondo from '../components/FondoA';
 import "./Styles/Login.css";
 import logo from '../assets/logo_capnee.png'; 
 import { useNavigate } from 'react-router-dom';
-
-const usuarioPrueba = {
-  username: 'cintia',
-  password: '123456'
-};
+import axios from 'axios';
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const API_URL = 'http://149.50.140.55:8081';
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+  
+    try {
+      const response = await axios.post(`${API_URL}/auth/user-password`, {user, password});
+  
+      const token = response.data.accessToken;
+      console.log('Respuesta del servidor:', response.data.accessToken);
+      
+      if (token) {
+        localStorage.setItem('token', token);
+        console.log('Inicio de sesión exitoso');
+        console.log('Token: ', token);
+        navigate('/listadocursos');
+      } else {
+        setError('No se pudo obtener el token de autenticación.');
+      }
 
-    if (username === usuarioPrueba.username && password === usuarioPrueba.password) {
-      navigate('/listadocursos')
-    } else {
-      setError('Credenciales incorrectas');
-    }
+    } catch (error) {
+      console.error('Error durante el inicio de sesión: ', error);
+      setError("No se puede iniciar sesión. Verifica tus credenciales.");
+    }   
   };
-
 
   return (
     <Fondo>
@@ -39,8 +50,8 @@ function Login() {
                 type="text" 
                 id="username" 
                 name="username" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)} 
+                value={user}
+                onChange={(e) => setUser(e.target.value)} 
                 required
               />
             </div>
