@@ -10,14 +10,15 @@ export default function NavVertical() {
     const navigate = useNavigate();
 
     return (
+        
         <div style={stylesNavV.contenedor}>
             <div onClick={() => navigate('/listadocursos')} style={stylesNavV.contenedorLogo}>
                 <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
             <div style={stylesNavV.acciones}>
-                <button style={stylesNavV.accion} onClick={() => navigate('/gestionalumnos')}>
+                <button style={stylesNavV.accion} onClick={() => navigate('/gestionbloques')}>
                     <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
-                    <span style={stylesNavV.usuario}>1° A</span>  
+                    <span style={stylesNavV.usuario}>Ejercicios 1° A</span>  
                 </button>
                 <button style={stylesNavV.accion} onClick={() => navigate('/perfil')}>
                     <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
