@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarHorizontal";
 import Agregar from "../components/BotonAgregar";
@@ -7,15 +7,26 @@ import ModalMediano from "../components/ModalMediano";
 import ModalGrande from "../components/ModalGrande"; 
 import "./Styles/ListadoCursos.css";
 import "./general.css";
-import iconoFlecha from '../assets/icon-flecha.png'; 
-import iconoEditar from '../assets/icon-editar.png'; 
-import iconoEliminar from '../assets/icon-trash.png'; 
 import construccion from '../assets/contruccion.png'; 
 import colors from "../constants/colors";
 import { useNavigate } from 'react-router-dom';
+import CursoCard from "../components/CursoCard";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
+const API_URL = 'http://149.50.140.55:8081';
 
 function ListadoCursos() {
+    // const [usuario, setUsuario] = useState(null);
+    const [cursos, setCursos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    //Valores del formulario de alta
+    const [anio, setAnio] = useState('');
+    const [division, setDivision] = useState('');
+    const [cicloLectivo, setCicloLectivo] = useState('');
+    const [idDocente, setIdDocente] = useState(null);
 
     const navigate = useNavigate();
 
@@ -41,35 +52,84 @@ function ListadoCursos() {
         setPopupAgregar(false);
         setPopupAlumnos(true);
     };
+
     const cancelarAlumnos = () => { setPopupAlumnos(false); };
+
+    //Recuperar token
+    const token = localStorage.getItem('token');
+
+    //Decodificar token
+    useEffect(() => {
+      if (token) {
+        const decoded = jwtDecode(token);
+        setIdDocente(decoded.sub);
+      } else {
+        console.log('Error decodificando el token');
+      }
+    }, [])
+
+    //Petición para obtener cursos
+    const getCursos = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/course/get-all`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setCursos(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError('Error al cargar los cursos');
+        setLoading(false);
+      }
+    };
+
+    useEffect(() => {
+      getCursos();
+    }, []);
+
+    //Petición para alta de Curso
+    const altaCurso = async (e) => {
+      e.preventDefault();
+      const cursoData = {
+        academicYear: cicloLectivo,
+        division: division,
+        level: anio,
+        teacherId: idDocente
+      };
+
+      try {
+        const response = await axios.post(`${API_URL}/course/add`, cursoData, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        console.log('Curso creado: ', response.data);
+      } catch (error) {
+        console.log('Error al crear el curso: ', error);
+      }
+    };
 
     return (
         <Fondo>
             <header>
-                <Navbar />
+                <Navbar/>
             </header>
             <body className="listadoCursos">
                 <h1 className="titulo">Listado de cursos</h1>
                 <div className="contenido">
                     <p id="cicloLectivo">Ciclo lectivo 2024</p>
                     <div className="listaCursos">
-                        <article className="curso">
-                            <p id="añoDivision">1°A</p>
-                            <div className="accionesCurso">
-                                <button onClick={handleAlumnos}>
-                                    <img className="icono" src={iconoFlecha} alt="Ícono flecha" />
-                                    Ver curso
-                                </button>
-                                <button onClick={editar}>
-                                    <img className="icono" src={iconoEditar} alt="Ícono editar" />
-                                    Modificar
-                                </button>
-                                <button onClick={eliminar}>
-                                    <img className="icono" src={iconoEliminar} alt="Ícono eliminar" />
-                                    Eliminar
-                                </button>
-                            </div>
-                        </article>
+                      {loading ? <p>Cargando cursos</p> : <p> </p>}
+                      {cursos.map((curso) => (
+                        <CursoCard
+                          key={curso.id}
+                          añoDivision={`${curso.level.slice(-1)}°${curso.division}`}
+                          handleVerCurso={handleAlumnos}
+                          handleEditar={editar}
+                          handleEliminar={eliminar}
+                        />
+                      ))}
                     </div>
                     <Agregar onClick={agregar}/>
                 </div>
@@ -143,7 +203,7 @@ function ListadoCursos() {
                 titulo="Agregar un curso nuevo"
                 cerrar={cancelarAgregar} 
                 colorFondo={colors.violeta}
-                aceptar={listaAlumnos}
+                aceptar={altaCurso}
               >
                 <div className="bodyModal">
                   <div id="headCurso" className="introduccion">
@@ -152,25 +212,27 @@ function ListadoCursos() {
                   <form id="formCurso">
                     <div className="input">
                       <label>Año</label>
-                      <select>
+                      <select value={anio} onChange={(e) => setAnio(e.target.value)}>
                         <option value="" disabled selected>Seleccione</option>
-                        <option value="1">Nivel 1</option>
-                        <option value="2">Nivel 2</option>
+                        <option value="LEVEL_1">Nivel 1</option>
+                        <option value="LEVEL_2">Nivel 2</option>
+                        <option value="LEVEL_3">Nivel 3</option>
                       </select>
                     </div>
                     <div className="input">
                       <label>División</label>
-                      <select>
+                      <select value={division} onChange={(e) => setDivision(e.target.value)}>
                         <option value="" disabled selected>Seleccione</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
                       </select>
                     </div>
                     <div className="input">
                       <label>Ciclo Lectivo</label>
-                      <select>
+                      <select value={cicloLectivo} onChange={(e) => setCicloLectivo(e.target.value)}>
                         <option value="" disabled selected>Seleccione</option>
-                        <option value="2023">2023</option>
                         <option value="2024">2024</option>
                       </select>
                     </div>

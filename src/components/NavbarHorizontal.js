@@ -1,12 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import colors from "../constants/colors";
 import logo from '../assets/logo_capnee_white.png'; 
 import iconoUsuario from '../assets/icon-user.png'; 
 import iconoSalir from '../assets/icon-salir.png'; 
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
-export default function NavHorizontal() {  
+export default function NavHorizontal() {
+    const [usuario, setUsuario] = useState('');  
     const navigate = useNavigate();
+
+    const token = localStorage.getItem('token');
+    
+    useEffect(() => {
+      if (token) {
+        try {
+          const decodedToken = jwtDecode(token);
+          setUsuario(decodedToken.name);
+        } catch (error) {
+          console.log('Token inválido.')
+        }
+      }
+    }, []);
 
     return (
         <div style={StylesNavH.contenedor}>
@@ -16,7 +31,7 @@ export default function NavHorizontal() {
             <div style={StylesNavH.contenedorAccionesSesion}>
                 <button style={StylesNavH.accion} onClick={() => navigate('/perfil')}>
                     <img style={StylesNavH.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
-                    <span style={StylesNavH.usuario}>Cintia Valero</span>  
+                    <span style={StylesNavH.usuario}>{usuario}</span>  
                 </button>
                 <button style={StylesNavH.accion} onClick={() => navigate('/')}>
                     <img style={StylesNavH.icono} src={iconoSalir} alt="Ícono de usuario" /> 
