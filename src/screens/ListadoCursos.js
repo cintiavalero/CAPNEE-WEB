@@ -21,6 +21,7 @@ function ListadoCursos() {
     const [cursos, setCursos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
     //Valores del formulario de alta
     const [anio, setAnio] = useState('');
@@ -40,7 +41,10 @@ function ListadoCursos() {
     const cancelarEditar = () => { setPopupEditar(false); };
 
     const [popupEliminar, setPopupEliminar] = useState(false);    
-    const eliminar = () => { setPopupEliminar(true); };
+    const eliminar = (idCurso) => {
+      setCursoSeleccionado(idCurso); 
+      setPopupEliminar(true); 
+    };
     const cancelarEliminar = () => { setPopupEliminar(false); };
 
     const [popupAgregar, setPopupAgregar] = useState(false);    
@@ -105,8 +109,26 @@ function ListadoCursos() {
           }
         });
         console.log('Curso creado: ', response.data);
+        getCursos();
       } catch (error) {
         console.log('Error al crear el curso: ', error);
+      }
+    };
+
+    //Eliminar curso
+    const eliminarCurso = async (idCurso) => {
+      try {
+        const response = await axios.delete(`${API_URL}/course/delete?id=${idCurso}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log('Curso eliminado: ', response.data);
+
+        getCursos();
+        cancelarEliminar();
+      } catch (error) {
+        console.log('Error al eliminar el curso: ', error);
       }
     };
 
@@ -127,7 +149,7 @@ function ListadoCursos() {
                           añoDivision={`${curso.level.slice(-1)}°${curso.division}`}
                           handleVerCurso={handleAlumnos}
                           handleEditar={editar}
-                          handleEliminar={eliminar}
+                          handleEliminar={() => eliminar(curso.id)}
                         />
                       ))}
                     </div>
@@ -139,10 +161,11 @@ function ListadoCursos() {
                 titulo="Dar de baja un curso"
                 cerrar={cancelarEliminar} 
                 colorFondo={colors.rojo}
+                aceptar={() => eliminarCurso(cursoSeleccionado)}
               >
                 <div className="bodyModal">
                     <p>
-                      ¿Está seguro que desea dar de baja el curso <b>1°A - 2024</b>?
+                      ¿Está seguro que desea dar de baja este curso?
                       </p>
                 </div>
               </ModalChico>
@@ -162,8 +185,9 @@ function ListadoCursos() {
                       <label>Año</label>
                       <select>
                         <option value="" disabled>Seleccione</option>
-                        <option value="1" selected>Nivel 1</option>
-                        <option value="2">Nivel 2</option>
+                        <option value="LEVEL_1" selected>Nivel 1</option>
+                        <option value="LEVEL_2">Nivel 2</option>
+                        <option value="LEVEL_3">Nivel 2</option>
                       </select>
                     </div>
                     <div className="input">
@@ -172,6 +196,8 @@ function ListadoCursos() {
                         <option value="" disabled>Seleccione</option>
                         <option value="A" selected>A</option>
                         <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
                       </select>
                     </div>
                     <div className="input">
