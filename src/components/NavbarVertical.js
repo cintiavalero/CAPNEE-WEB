@@ -52,6 +52,7 @@ const stylesNavV = {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
+        position: 'fixed',
     },
     contenedorLogo: {
         display: 'flex',

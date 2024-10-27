@@ -43,7 +43,7 @@ const styles = {
         display:'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        position:'absolute',
+        position:'fixed',
     },
     contenedorModal: {
         backgroundColor: colors.blanco, 
