@@ -4,7 +4,7 @@ import logo from '../assets/logo_capnee_white.png';
 import iconoUsuario from '../assets/icon-user.png'; 
 import iconoSalir from '../assets/icon-salir.png';
 import iconoCurso from '../assets/icon-book.png'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 
 export default function NavVertical() {
@@ -12,6 +12,9 @@ export default function NavVertical() {
     const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
+
+    //Recuperar id de curso
+    const { idCurso } = useParams();
 
     useEffect(() => {
         if (token) {
@@ -31,7 +34,7 @@ export default function NavVertical() {
                 <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
             <div style={stylesNavV.acciones}>
-                <button style={stylesNavV.accion} onClick={() => navigate('/gestionbloques')}>
+                <button style={stylesNavV.accion} onClick={() => navigate(`/gestionbloques/${idCurso}`)}>
                     <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
                     <span style={stylesNavV.usuario}>Ejercicios</span>  
                 </button>
