@@ -119,8 +119,7 @@ function GestionAlumnos() {
         dni: dni,
         birthdate: fechanacimiento, 
         rol: "ROLE_STUDENT",
-        //HARDCODEADO POR AHORA
-        courseId: 1
+        courseId: idCurso
       };
 
       try {
