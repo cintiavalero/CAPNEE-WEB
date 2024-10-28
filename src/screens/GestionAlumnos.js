@@ -43,12 +43,25 @@ function GestionAlumnos() {
     }
 
     const [popupEditar, setPopupEditar] = useState(false);    
-    const editar = () => { setPopupEditar(true); };
-    const cancelarEditar = () => { setPopupEditar(false); };
+    const editar = (alumno) => {
+      setAlumnoSeleccionado(alumno); 
+      setPopupEditar(true); 
+    };
+    const cancelarEditar = () => {
+      setAlumnoSeleccionado(''); 
+      setPopupEditar(false); 
+    };
 
-    const [popupEliminar, setPopupEliminar] = useState(false);    
-    const eliminar = () => { setPopupEliminar(true); };
-    const cancelarEliminar = () => { setPopupEliminar(false); };
+    const [popupEliminar, setPopupEliminar] = useState(false);
+    const [alumnoSeleccionado, setAlumnoSeleccionado] = useState('');    
+    const eliminar = (alumno) => { 
+      setAlumnoSeleccionado(alumno);
+      setPopupEliminar(true); 
+    };
+    const cancelarEliminar = () => {
+      setAlumnoSeleccionado(''); 
+      setPopupEliminar(false); 
+    };
 
     const [popupAgregar, setPopupAgregar] = useState(false);    
     const agregar = () => { setPopupAgregar(true); };
@@ -141,8 +154,8 @@ function GestionAlumnos() {
                           dni={alumno.dni}
                           fechaNacimiento={alumno.birthdate}
                           handleVerAlumno={verPerfil}
-                          handleEditar={editar}
-                          handleEliminar={eliminar}
+                          handleEditar={() => editar(`${alumno.name} ${alumno.lastName}`)}
+                          handleEliminar={() => eliminar(`${alumno.name} ${alumno.lastName}`)}
                         />
                       ))}
                     </div>
@@ -158,20 +171,20 @@ function GestionAlumnos() {
                 <div className="bodyModal">
                     <p style={{padding:' 0 30px', textAlign:'left',}}>
                     Se eliminará el progreso y las actividades realizadas por el alumno.<br/>
-                    Si está seguro que desea desvincular a <b> Franco Borsella de 1° A</b> haga clic en Aceptar
+                    Si está seguro que desea desvincular a <b>{alumnoSeleccionado}</b> haga clic en Aceptar
                     </p>
                 </div>
               </ModalChico>
             )}
             {popupEditar && (
                 <ModalMediano 
-                titulo="Editar un curso"
+                titulo="Editar alumno"
                 cerrar={cancelarEditar} 
                 colorFondo={colors.celesteOscuro} 
                 >
                     <div className="bodyModal">
                   <div id="headAlumno" className="introduccion">
-                    <p>Estás modificando los datos del alumno: <b>Franco Borsella</b></p>
+                    <p>Estás modificando los datos del alumno: <b>{alumnoSeleccionado}</b></p>
                   </div>
                   <form id="formAlumno">
                     <div>
