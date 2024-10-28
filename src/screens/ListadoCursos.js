@@ -31,9 +31,9 @@ function ListadoCursos() {
 
     const navigate = useNavigate();
 
-    const handleAlumnos = (e) => {
+    const handleAlumnos = (e, idCurso) => {
       e.preventDefault();
-        navigate('/gestionalumnos')
+      navigate(`/gestionalumnos/${idCurso}`)
     };
 
     const [popupEditar, setPopupEditar] = useState(false);    
@@ -147,7 +147,7 @@ function ListadoCursos() {
                         <CursoCard
                           key={curso.id}
                           añoDivision={`${curso.level.slice(-1)}°${curso.division}`}
-                          handleVerCurso={handleAlumnos}
+                          handleVerCurso={(e) => handleAlumnos(e, curso.id)}
                           handleEditar={editar}
                           handleEliminar={() => eliminar(curso.id)}
                         />
