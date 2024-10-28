@@ -66,7 +66,7 @@ function GestionBloques() {
                                 key={bloque.id}
                                 imagen={imagenes[index % imagenes.length]}
                                 titulo={bloque.name}
-                                rutaDestino={`/gestionSubbloques/${idCurso}/${bloque.id}`}
+                                rutaDestino={`/gestionSubbloques/curso/${idCurso}/bloque/${bloque.id}`}
                             />
                         ))}
                     </div>

@@ -33,7 +33,7 @@ function ListadoCursos() {
 
     const handleAlumnos = (e, idCurso) => {
       e.preventDefault();
-      navigate(`/gestionalumnos/${idCurso}`)
+      navigate(`/gestionalumnos/curso/${idCurso}`)
     };
 
     const [popupEditar, setPopupEditar] = useState(false);    
