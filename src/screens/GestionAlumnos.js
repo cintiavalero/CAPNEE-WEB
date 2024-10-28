@@ -11,7 +11,7 @@ import ModalChico from "../components/ModalChico";
 import ModalMediano from "../components/ModalMediano";
 import AlumnoCard from "../components/AlumnoCard";
 import colors from "../constants/colors";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from "axios";
 
 const API_URL = 'http://149.50.140.55:8081';
@@ -20,6 +20,9 @@ function GestionAlumnos() {
     const [alumnos, setAlumnos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    //Recuperar id de curso
+    const { idCurso } = useParams();
 
     //Valores del formulario de alta
     const [nombre, setNombre] = useState('');
@@ -54,16 +57,15 @@ function GestionAlumnos() {
     //Recuperar token
     const token = localStorage.getItem('token');
 
-    //Petición para obtener alumnos asociados a un curso (CAMBIAR ENDPOINT, ESTE TRAE A TODOS LOS USUARIOS)
+    //Petición para obtener alumnos asociados a un curso
     const getAlumnos = async () => {
       try {
-        const response = await axios.get(`${API_URL}/person/get-all`, {
+        const response = await axios.get(`${API_URL}/course/get-students-from-course?id=${idCurso}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        setAlumnos(response.data);
-        console.log(response.data);
+        setAlumnos(response.data.students);
         setLoading(false);
       } catch (error) {
         setError('Error al cargar los alumnos');
@@ -131,6 +133,7 @@ function GestionAlumnos() {
                 <div className="contenido">
                     <div className="listaAlumnos">
                       {loading ? <p>Cargando alumnos</p> : <p> </p>}
+                      {alumnos.length === 0 ? <p>No hay alumnos asociados a este curso</p> : <p></p>}
                       {alumnos.map((alumno) => (
                         <AlumnoCard
                           nombre={alumno.name + ' ' + alumno.lastName}
@@ -210,7 +213,7 @@ function GestionAlumnos() {
                         {errors.apellido && <p style={{ fontSize: '9px', color: 'red' }}>{errors.apellido}</p>}
                         <input placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)} required/>
                         {errors.contrasena && <p style={{ fontSize: '9px', color: 'red' }}>{errors.contrasena}</p>}
-                        <input placeholder="aa/mm/dd" value={fechanacimiento} onChange={(e) => setFechanacimiento(e.target.value)} required/>
+                        <input placeholder="aaaa/mm/dd" value={fechanacimiento} onChange={(e) => setFechanacimiento(e.target.value)} required/>
                         {errors.fechanacimiento && <p style={{ fontSize: '9px', color: 'red' }}>{errors.fechanacimiento}</p>}
                     </div>
                   </form>
