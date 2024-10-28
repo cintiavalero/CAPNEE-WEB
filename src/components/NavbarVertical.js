@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import colors from "../constants/colors";
 import logo from '../assets/logo_capnee_white.png'; 
 import iconoUsuario from '../assets/icon-user.png'; 
 import iconoSalir from '../assets/icon-salir.png';
 import iconoCurso from '../assets/icon-book.png'; 
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
-export default function NavVertical() {  
+export default function NavVertical() {
+    const [usuario, setUsuario] = useState('');    
     const navigate = useNavigate();
+
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        if (token) {
+          try {
+            const decodedToken = jwtDecode(token);
+            setUsuario(decodedToken.name);
+          } catch (error) {
+            console.log('Token inválido.')
+          }
+        }
+      }, []);
 
     return (
         
@@ -18,11 +33,11 @@ export default function NavVertical() {
             <div style={stylesNavV.acciones}>
                 <button style={stylesNavV.accion} onClick={() => navigate('/gestionbloques')}>
                     <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
-                    <span style={stylesNavV.usuario}>Ejercicios 1° A</span>  
+                    <span style={stylesNavV.usuario}>Ejercicios</span>  
                 </button>
                 <button style={stylesNavV.accion} onClick={() => navigate('/perfil')}>
                     <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
-                    <span style={stylesNavV.usuario}>Cintia Valero</span>  
+                    <span style={stylesNavV.usuario}>{usuario}</span>  
                 </button>
                 <button style={stylesNavV.accion} onClick={() => navigate('/')}>
                     <img style={stylesNavV.icono} src={iconoSalir} alt="Ícono de usuario" /> 
