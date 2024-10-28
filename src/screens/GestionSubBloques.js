@@ -24,7 +24,7 @@ function GestionSubBloques() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    //Recuperar id de curso
+    //Recuperar parámetros de ruta
     const { idCurso, idBloque } = useParams();
 
     //Recuperar token
@@ -40,7 +40,6 @@ function GestionSubBloques() {
             });
             setSubBloques(response.data.subBlocks);
             setNombreBloque(response.data.thematicBlock)
-            console.log('Sub-bloques', response.data.thematicBlock)
             setLoading(false);
         } catch (error) {
             setError('Error al cargar los bloques');
@@ -68,34 +67,10 @@ function GestionSubBloques() {
                                 key={subBloque.id}
                                 imagen={imagenes[index % imagenes.length]}
                                 titulo={subBloque.name}
-                                rutaDestino={`/gestionactividades/`}
+                                rutaDestino={`/gestionactividades/curso/${idCurso}/sub-bloque/${subBloque.id}`}
                             />
 
                         ))}
-                        {/* <article className="bloque" onClick={() => navigate('/gestionactividades')}>
-                            <div className="imagenBloque">
-                                <img src={subbloque1} alt="Subbloque 1" /> 
-                            </div>
-                            <div className="tituloBloque">
-                               <p>Usar y conocer los números</p>
-                            </div>
-                        </article>
-                        <article className="bloque">
-                            <div className="imagenBloque">
-                                <img src={subbloque2} alt="Subbloque 2" />
-                            </div>
-                            <div className="tituloBloque">
-                               <p>Números de varias cifras</p>
-                            </div>
-                        </article>
-                        <article className="bloque">
-                            <div className="imagenBloque">
-                                <img src={subbloque3} alt="Subbloque 3" /> 
-                            </div>
-                            <div className="tituloBloque">
-                               <p>Valor posicional</p>
-                            </div>
-                        </article> */}
                     </div>
                 </div>
             </body>

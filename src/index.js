@@ -24,8 +24,8 @@ root.render(
           <Route path="/gestionalumnos/curso/:idCurso" element={<GestionAlumnos/>} />
           <Route path="/gestionbloques/curso/:idCurso" element={<GestionBloques/>} />
           <Route path="/gestionsubbloques/curso/:idCurso/bloque/:idBloque" element={<GestionSubBloques/>} />
-          <Route path="/gestionactividades" element={<GestionActividades/>} />
-          <Route path="/gestionejercicios" element={<GestionEjercicios/>} />
+          <Route path="/gestionactividades/curso/:idCurso/sub-bloque/:idSubBloque" element={<GestionActividades/>} />
+          <Route path="/gestionejercicios/curso/:idCurso/actividad/:idActividad" element={<GestionEjercicios/>} />
       </Routes>
     </Router>
   </React.StrictMode>
