@@ -34,7 +34,7 @@ export default function NavVertical() {
                 <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
             <div style={stylesNavV.acciones}>
-                <button style={stylesNavV.accion} onClick={() => navigate(`/gestionbloques/${idCurso}`)}>
+                <button style={stylesNavV.accion} onClick={() => navigate(`/gestionbloques/curso/${idCurso}`)}>
                     <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
                     <span style={stylesNavV.usuario}>Ejercicios</span>  
                 </button>
