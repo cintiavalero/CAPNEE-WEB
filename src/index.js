@@ -21,7 +21,7 @@ root.render(
           <Route path="/" element={<Login />} />
           <Route path="/perfil" element={<Perfil/>} />
           <Route path="/listadocursos" element={<ListadoCursos/>} />
-          <Route path="/gestionalumnos" element={<GestionAlumnos/>} />
+          <Route path="/gestionalumnos/:idCurso" element={<GestionAlumnos/>} />
           <Route path="/gestionbloques" element={<GestionBloques/>} />
           <Route path="/gestionsubbloques" element={<GestionSubBloques/>} />
           <Route path="/gestionactividades" element={<GestionActividades/>} />
