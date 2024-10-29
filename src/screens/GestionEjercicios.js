@@ -47,6 +47,13 @@ function GestionEjercicios() {
     const agregar = () => { setPopupAgregar(true); };
     const cancelarAgregar = () => { setPopupAgregar(false); };
 
+    //Estados para formulario de alta de ejercicio
+    const [titulo, setTitulo] = useState('');
+    const [imagenBase64, setImagenBase64] = useState('');
+    const [enunciado, setEnunciado] = useState('');
+    const [opciones, setOpciones] = useState(['', '', '', '']);
+    const [indiceOpcionCorrecta, setIndiceOpcionCorrecta] = useState(null);
+
     //Recuperar parámetros de ruta
     const { idCurso, idActividad } = useParams();
 
@@ -89,6 +96,60 @@ function GestionEjercicios() {
     useEffect(() => {
         getEjercicios();
     }, [idCurso, idActividad, token]);
+
+    //Formulario de alta de ejercicio
+    const handleImagenChange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagenBase64(reader.result);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("Por favor selecciona un archivo de imagen.");
+        }
+    };
+
+    const handleRadioChange = (index) => {
+        setIndiceOpcionCorrecta(index);
+    };
+
+    const handleOpcionChange = (index, value) => {
+        const nuevasOpciones = [...opciones];
+        nuevasOpciones[index] = value;
+        setOpciones(nuevasOpciones);
+    };
+
+    const altaEjercicio = async (e) => {
+        e.preventDefault();
+        const imagenBase64Parseada = imagenBase64.replace(/^data:image\/\w+;base64,/, '');
+
+        const datosFormulario = {
+            title: titulo,
+            statement: enunciado,
+            options: opciones,
+            correctOptionPosition: indiceOpcionCorrecta,
+            attachedImageBase64: imagenBase64Parseada,
+            thematicContentId: parseInt(idActividad),
+            courseId: parseInt(idCurso)
+        };
+
+        console.log('Datos a enviar: ', datosFormulario);
+        
+        try {
+            const response = await axios.post(`${API_URL}/exercises/add`, datosFormulario, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log('Ejercicio creado: ', response.data);
+            getEjercicios();
+            cancelarAgregar();
+        } catch (error) {
+            console.log('Error al crear el ejercicio: ', error);
+        }
+    };
 
     //Eliminar ejercicio
     const eliminarEjercicio = async (idEjercicio) => {
@@ -201,6 +262,7 @@ function GestionEjercicios() {
     titulo="Agregar un ejercicio nuevo"
     cerrar={cancelarAgregar} 
     colorFondo={colors.violeta}
+    aceptar={altaEjercicio}
   >
     <div className="bodyModal">
       <div id="headEjercicio" className="introduccion">
@@ -210,41 +272,50 @@ function GestionEjercicios() {
         <section>
             <div className="inputGroup tituloInput">
                 <label>Título del ejercicio:</label>
-                <input type="text" placeholder="Ingrese un título..." />
+                <input 
+                    type="text"
+                    value={titulo} 
+                    placeholder="Ingrese un título..."
+                    onChange={(e) => setTitulo(e.target.value)} 
+                />
             </div>
             <div className="inputGroup imagenInput">
                 <label>Imagen para la consigna:</label>
-                <button id="agregarImagen"> Agregar imagen </button>
+                <input type="file" accept="image/*" onChange={handleImagenChange} />
             </div>
         </section>
         <section>
             <div className="inputGroup descripcionInput">
                 <label>Enunciado:</label>
-                <textarea placeholder="Descripción del ejercicio..."></textarea>
+                <textarea 
+                    value={enunciado}
+                    onChange={(e) => setEnunciado(e.target.value)}
+                    placeholder="Descripción del ejercicio...">    
+                </textarea>
             </div>
 
             <div className="opcionesRespuesta">
                 <label>Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):</label>
-                <div className="opcion">
-                    <input type="radio" name="respuestaCorrecta" />
-                    <input type="text" placeholder="Opción 1" />
-                    <button className="eliminarOpcion">-</button>
-                </div>
-                <div className="opcion">
-                    <input type="radio" name="respuestaCorrecta" />
-                    <input type="text" placeholder="Opción 2" />
-                    <button className="eliminarOpcion">-</button>
-                </div>
-                <div className="opcion">
-                    <input type="radio" name="respuestaCorrecta" />
-                    <input type="text" placeholder="Opción 2" />
-                    <button className="eliminarOpcion">-</button>
-                </div>
-                <button className="agregarOpcion">+</button>
+                {opciones.map((opcion, index) => (
+                    <div className="opcion" key={index}>
+                        <input 
+                            type="radio" 
+                            name="respuestaCorrecta" 
+                            checked={indiceOpcionCorrecta === index} 
+                            onChange={() => handleRadioChange(index)} 
+                        />
+                        <input 
+                            type="text"
+                            value={opcion.texto}
+                            onChange={(e) => handleOpcionChange(index, e.target.value)} 
+                            placeholder={`Opción ${index + 1}`} 
+                        />
+                        {/* <button className="eliminarOpcion">-</button> */}
+                    </div>
+                ))}
+                {console.log('Opcion correcta: ', indiceOpcionCorrecta)}                
             </div>
         </section>
-        
-       
       </form>
     </div>
   </ModalGrande>
