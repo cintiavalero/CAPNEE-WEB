@@ -14,21 +14,27 @@
     align-items: center;
     color: #ffffff;
     font-family: Arial, sans-serif;
-    margin-top: 50px;
+    margin-top: 35px;
 }
 
 .perfil .imagen-perfil {
-    width: 80px;
-    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 20px;
     border: 3px solid #ffffff;
+    background-color: var(--blanco);
 }
 
 .perfil .imagen-perfil img {
     width: 100%;
-    height: auto;
+    border-radius: 50%;
+    color: var(--celesteOscuro);
+
 }
 
 .perfil .info-perfil {

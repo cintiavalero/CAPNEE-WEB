@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
 import "./Styles/Perfil.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import "./general.css";
-const API_URL = 'http://149.50.140.55:8082';
+import axios from "axios";
+const API_URL = 'http://149.50.140.55:8081';
 
 function Perfil() {
+
+    const [alumno, setAlumno] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [openSections, setOpenSections] = useState({
         numerosNaturales: false,
         operacionesNumerosNaturales: false,
@@ -19,6 +24,31 @@ function Perfil() {
             [section]: !prevState[section],
         }));
     };
+
+    const { idCurso, idUsuario } = useParams();
+    const token = localStorage.getItem('token');
+
+    // Petición para obtener información de un alumno específico
+    const getAlumnoById = async (id) => {
+        try {
+            const response = await axios.get(`${API_URL}/person/get-by-id?id=${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setAlumno(response.data);  // Guardar la información del alumno
+            setLoading(false);
+        } catch (error) {
+            setError('Error al cargar la información del alumno');
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getAlumnoById(idUsuario); // Usar el idUsuario del parámetro de la URL
+    }, [idUsuario]);
+
+  
     return (
         <Fondo>
              <div className="header-vertical">
@@ -26,15 +56,16 @@ function Perfil() {
             </div>
             <body className="perfil">
                 <h1 className="titulo">Perfil y estado académico</h1>
-                <div class="tarjeta-perfil">
-                    <div class="imagen-perfil">
-                        <image src="" alt="Foto de perfil"></image>
+
+                <div className="tarjeta-perfil">
+                    <div className="imagen-perfil">
+                        <img src={alumno?.photo || ""} alt="Foto de perfil" /> 
                     </div>
-                    <div class="info-perfil">
-                        <h2>Cintia Valero - 1ºA 2024</h2>
-                        <p>Usuario: cintiav</p>
-                        <p>DNI: 43042670</p>
-                        <p>Fecha de nacimiento: 06/06/2001</p>
+                    <div className="info-perfil">
+                        <h2>{alumno ? `${alumno.name} ${alumno.lastName}` : "Sin información"}</h2>
+                        <p>Usuario: {alumno?.username || "Sin información"}</p>
+                        <p>DNI: {alumno?.dni || "Sin información"}</p>
+                        <p>Fecha de nacimiento: {alumno?.birthdate || "Sin información"}</p>
                     </div>
                 </div>
 
@@ -65,27 +96,6 @@ function Perfil() {
                                             <td>06/06/2001</td>
                                             <td>43397816</td>
                                             <td>pochoclo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Juan Ignacio</td>
-                                            <td>15/03/2001</td>
-                                            <td>43748237</td>
-                                            <td>juani</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Franco Ezequiel</td>
-                                            <td>21/11/2000</td>
-                                            <td>42347566</td>
-                                            <td>borse</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Nombre...</td>
-                                            <td>Apellido...</td>
-                                            <td>Fecha...</td>
-                                            <td>DNI...</td>
                                         </tr>
                                     </tbody>
                                 </table>
