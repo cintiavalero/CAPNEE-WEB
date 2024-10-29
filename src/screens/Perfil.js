@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
+import fotoAlumno from "../assets/alumno.jpg"
+import fotoAlumna from "../assets/alumna.jpg"
 import "./Styles/Perfil.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import "./general.css";
@@ -36,7 +38,7 @@ function Perfil() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            setAlumno(response.data);  // Guardar la información del alumno
+            setAlumno(response.data);
             setLoading(false);
         } catch (error) {
             setError('Error al cargar la información del alumno');
@@ -59,13 +61,14 @@ function Perfil() {
 
                 <div className="tarjeta-perfil">
                     <div className="imagen-perfil">
-                        <img src={alumno?.photo || ""} alt="Foto de perfil" /> 
+                        {}
+                        <img src={alumno?.photo || fotoAlumno} alt="Foto de perfil" /> 
                     </div>
                     <div className="info-perfil">
                         <h2>{alumno ? `${alumno.name} ${alumno.lastName}` : "Sin información"}</h2>
-                        <p>Usuario: {alumno?.username || "Sin información"}</p>
-                        <p>DNI: {alumno?.dni || "Sin información"}</p>
-                        <p>Fecha de nacimiento: {alumno?.birthdate || "Sin información"}</p>
+                        <p><b>Usuario: </b> {alumno?.username || "Sin información"}</p>
+                        <p><b>DNI: </b> {alumno?.dni || "Sin información"}</p>
+                        <p><b>Fecha de nacimiento: </b> {alumno?.birthdate || "Sin información"}</p>
                     </div>
                 </div>
 
@@ -85,22 +88,58 @@ function Perfil() {
                                             <th>Ejercicio</th>
                                             <th>Resuelto</th>
                                             <th>Intentos</th>
-                                            <th>Tiempos</th>
+                                            <th>Tiempo</th>
                                             <th>Calificación</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td>Conteo de números</td>
+                                            <td>Si</td>
                                             <td>1</td>
-                                            <td>Cintia Milagros</td>
-                                            <td>06/06/2001</td>
-                                            <td>43397816</td>
-                                            <td>pochoclo</td>
+                                            <td>10s</td>
+                                            <td>5⭐</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suma de números naturales</td>
+                                            <td>No</td>
+                                            <td>2</td>
+                                            <td>4,3s</td>
+                                            <td>0⭐</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <li>Contexto y uso de los números</li>
+                            <div className="tabla-academica">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Ejercicio</th>
+                                            <th>Resuelto</th>
+                                            <th>Intentos</th>
+                                            <th>Tiempo</th>
+                                            <th>Calificación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Conteo de números</td>
+                                            <td>Si</td>
+                                            <td>1</td>
+                                            <td>10s</td>
+                                            <td>5⭐</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suma de números naturales</td>
+                                            <td>No</td>
+                                            <td>2</td>
+                                            <td>4,3s</td>
+                                            <td>0⭐</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <li>Números de varias cifras</li>
                         </ul>
                     )}

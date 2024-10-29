@@ -176,7 +176,7 @@ function GestionAlumnos() {
                 <h1 className="titulo">Gestión de alumnos: {curso}</h1>
                 <div className="contenido">
                     <div className="listaAlumnos">
-                      <p id="cantidadEjercicios"><b> Cantidad de alumnos del curso: {alumnos.length}</b></p>
+                      <p id="cantidadEjercicios"><b> Cantidad de alumnos: {alumnos.length}</b></p>
                       {loading ? <p>Cargando alumnos</p> : <p> </p>}
                       {alumnos.length === 0 ? <p>No hay alumnos asociados a este curso</p> : <p></p>}
                       {alumnos.map((alumno) => (

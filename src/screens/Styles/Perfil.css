@@ -6,7 +6,7 @@
     width: calc(100% - 250px);
 }
 .perfil .tarjeta-perfil {
-    width: 400px;
+    min-width: 450px;
     background-color: var(--celesteOscuro);
     border-radius: 15px;
     padding: 20px;
@@ -53,9 +53,8 @@
 }
 
 .perfil .tabla-academica table {
-    width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .perfil .tabla-academica th, .tabla-academica td {
@@ -85,11 +84,16 @@
     font-weight: bold;
     margin: 10px 0;
     color: var(--violetaOscuro);
+    width: 100%;
 }
 
 .perfil .secciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 30px;
+    padding: 30px 90px;
 }
 
 .perfil .viñeta {
@@ -110,6 +114,7 @@
     list-style-type: none;
     margin: 0;
     padding-left: 24px;
+    width: 90%;
 }
 
 .perfil ul li {

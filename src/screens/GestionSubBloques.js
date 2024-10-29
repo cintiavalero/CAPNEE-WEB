@@ -69,7 +69,6 @@ function GestionSubBloques() {
                                 titulo={subBloque.name}
                                 rutaDestino={`/gestionactividades/curso/${idCurso}/sub-bloque/${subBloque.id}`}
                             />
-
                         ))}
                     </div>
                 </div>
