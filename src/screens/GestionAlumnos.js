@@ -51,8 +51,8 @@ function GestionAlumnos() {
 
     const [popupEliminar, setPopupEliminar] = useState(false);
     const [alumnoSeleccionado, setAlumnoSeleccionado] = useState('');    
-    const eliminar = (alumno) => { 
-      setAlumnoSeleccionado(alumno);
+    const eliminar = (alumno, idAlumno) => { 
+      setAlumnoSeleccionado(idAlumno);
       setPopupEliminar(true); 
     };
     const cancelarEliminar = () => {
@@ -86,6 +86,23 @@ function GestionAlumnos() {
     useEffect(() => {
       getAlumnos();
     }, []);
+
+    //Petición para eliminar alumno
+    const eliminarAlumno = async (idAlumno) => {
+      try {
+        const response = await axios.delete(`${API_URL}/person/delete?id=${idAlumno}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log('Alumno eliminado: ', response.data);
+
+        getAlumnos();
+        cancelarEliminar();
+      } catch (error) {
+        console.log('Error al eliminar el alumno: ', error);
+      }
+    }
 
     //Validar los campos
     const validarCampos = () => {
@@ -145,13 +162,14 @@ function GestionAlumnos() {
                       {alumnos.length === 0 ? <p>No hay alumnos asociados a este curso</p> : <p></p>}
                       {alumnos.map((alumno) => (
                         <AlumnoCard
+                          key={alumno.id}
                           nombre={alumno.name + ' ' + alumno.lastName}
                           usuario={alumno.username}
                           dni={alumno.dni}
                           fechaNacimiento={alumno.birthdate}
                           handleVerAlumno={verPerfil}
                           handleEditar={() => editar(`${alumno.name} ${alumno.lastName}`)}
-                          handleEliminar={() => eliminar(`${alumno.name} ${alumno.lastName}`)}
+                          handleEliminar={() => eliminar(`${alumno.name} ${alumno.lastName}`, alumno.id)}
                         />
                       ))}
                     </div>
@@ -163,11 +181,12 @@ function GestionAlumnos() {
                 titulo="Dar de baja un alumno"
                 cerrar={cancelarEliminar} 
                 colorFondo={colors.rojo}
+                aceptar={() => eliminarAlumno(alumnoSeleccionado)}
               >
                 <div className="bodyModal">
                     <p style={{padding:' 0 30px', textAlign:'left',}}>
                     Se eliminará el progreso y las actividades realizadas por el alumno.<br/>
-                    Si está seguro que desea desvincular a <b>{alumnoSeleccionado}</b> haga clic en Aceptar
+                    Si está seguro que desea desvincular al alumno seleccionado haga clic en Aceptar
                     </p>
                 </div>
               </ModalChico>
