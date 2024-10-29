@@ -1,100 +1,113 @@
 @import 'colors.css';
+@import 'colors.css';
 
-.listadoCursos .contenido {
+.perfil {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+.perfil .tarjeta-perfil {
+    width: 400px;
+    background-color: var(--celesteOscuro);
+    border-radius: 15px;
+    padding: 20px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 700px;
-    height: 100%;
-    gap: 20px;
+    align-items: center;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin-top: 50px;
 }
 
-.listadoCursos .listaCursos {
-    display: flex;
-    flex-direction: column;
+.perfil .imagen-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+    border: 3px solid #ffffff;
+}
+
+.perfil .imagen-perfil img {
     width: 100%;
+    height: auto;
 }
 
-.listadoCursos .curso {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--blanco); /* Uso de la variable */
-    border-radius: 10px;
-    margin-bottom: 10px;
-    padding: 10px 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.listadoCursos .accionesCurso {
-    display: flex;
-    gap: 10px;
-}
-
-.listadoCursos .accionesCurso button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
+.perfil .info-perfil {
     font-size: 14px;
-}
-
-.listadoCursos .accionesCurso button img {
-    margin-right: 5px;
-    width: 25px;
-    height: 25px;
-}
-
-.listadoCursos #cicloLectivo {
     text-align: left;
-    font-weight: bold;
-    font-size: 18px;
-    width: 100%;
+}
+
+.perfil .info-perfil h2 {
+    font-size: 20px;
     margin: 0;
-    margin-top: 35px;
-}
-
-.listadoCursos #añoDivision {
-    text-align: left;
     font-weight: bold;
-    font-size: 28px;
-    margin: 0;
-    color: var(--violeta);
 }
 
-#headCurso {
-    text-align: left;
+.perfil .info-perfil p {
+    margin: 4px 0;
 }
 
-#formCurso {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+.perfil .tabla-academica table {
     width: 100%;
-    flex-grow: 1;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-#formCurso .input {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-}
-#formCurso .input label {
-    font-weight: bold;
-}
-
-#formCurso select {
+.perfil .tabla-academica th, .tabla-academica td {
     padding: 10px;
-    border: 1px solid #a4a0a9;
-    border-radius: 5px;
-    font-size: 12px;
-    width: 60%;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
+.perfil .tabla-academica th {
+    background-color: var(--celeste);
+    color: #fff;
+    font-weight: bold;
+}
+
+.perfil .tabla-academica td {
+    background-color: #f9f9f9;
+}
+
+.perfil .tabla-academica tr:hover {
+    background-color: #f1f1f1;
+}
+
+.perfil .seccion-titulo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 0;
+    color: var(--violetaOscuro);
+}
+
+.perfil .secciones {
+    width: 100%;
+    padding: 30px;
+}
+
+.perfil .viñeta {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid  var(--violetaOscuro);
+    margin-right: 8px;
+    transition: transform 0.3s;
+}
+
+.perfil .viñeta.abierta {
+    transform: rotate(90deg);
+}
+
+.perfil ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 24px;
+}
+
+.perfil ul li {
+    margin: 5px 0;
+    text-align: left;
+    color: var(--violetaOscuro);
 }

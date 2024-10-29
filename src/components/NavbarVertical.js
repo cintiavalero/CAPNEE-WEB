@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import colors from "../constants/colors";
 import logo from '../assets/logo_capnee_white.png'; 
 import iconoUsuario from '../assets/icon-user.png'; 
+import iconoUsuarios from '../assets/icon-users.png'; 
 import iconoSalir from '../assets/icon-salir.png';
 import iconoCurso from '../assets/icon-book.png'; 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -34,18 +35,27 @@ export default function NavVertical() {
                 <img src={logo} alt="Logo CAPNEE blanco" style={stylesNavV.logo} />
             </div>
             <div style={stylesNavV.acciones}>
-                <button style={stylesNavV.accion} onClick={() => navigate(`/gestionbloques/curso/${idCurso}`)}>
-                    <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
-                    <span style={stylesNavV.usuario}>Ejercicios</span>  
-                </button>
-                <button style={stylesNavV.accion} onClick={() => navigate('/perfil')}>
-                    <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
-                    <span style={stylesNavV.usuario}>{usuario}</span>  
-                </button>
-                <button style={stylesNavV.accion} onClick={() => navigate('/')}>
-                    <img style={stylesNavV.icono} src={iconoSalir} alt="Ícono de usuario" /> 
-                    <span style={stylesNavV.usuario}>Cerrar sesión</span>  
-                </button>
+                <div style={stylesNavV.gestiones}>
+                    <button style={stylesNavV.gestion} onClick={() => navigate(`/gestionalumnos/curso/${idCurso}`)}>
+                        <img style={stylesNavV.icono} src={iconoUsuarios} alt="Ícono de curso" /> 
+                        <span style={stylesNavV.usuario}>Alumnos</span>  
+                    </button>
+                    <button style={stylesNavV.gestion} onClick={() => navigate(`/gestionbloques/curso/${idCurso}`)}>
+                        <img style={stylesNavV.icono} src={iconoCurso} alt="Ícono de curso" /> 
+                        <span style={stylesNavV.usuario}>Ejercicios</span>  
+                    </button>
+                </div>
+                <div>
+                    <button style={stylesNavV.accion} onClick={() => navigate('/perfil')}>
+                        <img style={stylesNavV.icono} src={iconoUsuario} alt="Ícono de usuario" /> 
+                        <span style={stylesNavV.usuario}>{usuario}</span>  
+                    </button>
+                    <button style={stylesNavV.accion} onClick={() => navigate('/')}>
+                        <img style={stylesNavV.icono} src={iconoSalir} alt="Ícono de usuario" /> 
+                        <span style={stylesNavV.usuario}>Cerrar sesión</span>  
+                    </button>
+                </div>
+
             </div>
         </div>
     );
@@ -61,6 +71,25 @@ const stylesNavV = {
         color: 'white', 
         textAlign: 'center',
         fontSize: '18px',
+    },
+    gestiones: {
+        display: 'flex',
+        gap: '10px',
+        flexDirection: 'column',
+        width: '100%',
+        padding: '0 20px',
+    },
+    gestion: {
+        display: 'flex',
+        alignItems: 'center', 
+        justifyContent:'center',
+        marginBottom: '10px',
+        width: '100%',
+        height: '50px',
+        borderRadius: '15px',
+        backgroundColor: colors.verde, 
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+        cursor: 'pointer',
     },
     contenedor: {
         backgroundColor: colors.violeta, 
@@ -80,10 +109,12 @@ const stylesNavV = {
     acciones: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent:'space-between',
         flexDirection: 'column',
         marginBottom: '10px',
         width: '100%',
+        height: '100%',
+        paddingTop: '80px',
     },
     accion: {
         display: 'flex',
