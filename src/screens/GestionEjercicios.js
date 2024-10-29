@@ -20,13 +20,19 @@ function GestionEjercicios() {
     const [ejercicios, setEjercicios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [detallesEjercicio, setDetallesEjercicio] = useState([]);
+    const [ejercicioSeleccionado, setEjercicioSeleccionado] = useState(null);
 
     const [popupEditar, setPopupEditar] = useState(false);    
     const editar = () => { setPopupEditar(true); };
     const cancelarEditar = () => { setPopupEditar(false); };
 
     const [popupVer, setPopupVer] = useState(false);    
-    const ver = () => { setPopupVer(true); };
+    const ver = (idEjercicio, nombreEjercicio) => {
+        getDetallesEjercicio(idEjercicio); 
+        setEjercicioSeleccionado(nombreEjercicio);
+        setPopupVer(true); 
+    };
     const cancelarVer = () => { setPopupVer (false); };
 
     const [popupEliminar, setPopupEliminar] = useState(false);    
@@ -55,14 +61,42 @@ function GestionEjercicios() {
             setEjercicios(response.data.exercises);
             setLoading(false);
         } catch (error) {
-            setError('Error al cargar los bloques');
+            setError('Error al cargar los ejercicios');
             setLoading(false);
         }
     }
 
+    //Petición para obtener los resultados de un ejercicio
+
+    const getDetallesEjercicio = async (idEjercicio) => {
+        try {
+            const response = await axios.get(`${API_URL}/exercises/students?exerciseId=${idEjercicio}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log('Detalles ejercicio: ', response.data);
+            setDetallesEjercicio(response.data);
+        } catch (error) {
+            console.error('Error al obtener los detalles del ejercicio: ', error);
+        }
+    };
+
     useEffect(() => {
         getEjercicios();
-    }, [idCurso, idActividad, token])
+    }, [idCurso, idActividad, token]);
+
+    //Función para formatear el tiempo de resolución
+    const formatTime = (miliseconds) => {
+        const totalSeconds = Math.floor(miliseconds / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(seconds).padStart(2, '0');
+
+        return `${formattedMinutes}:${formattedSeconds}`;
+    }
 
     return (
         <Fondo >
@@ -81,7 +115,7 @@ function GestionEjercicios() {
                             <CartaEjercicio
                                 key = {ejercicio.id}
                                 nombre = {ejercicio.title}
-                                handleVerIntentos = {ver}
+                                handleVerIntentos = {() => ver(ejercicio.id, ejercicio.title)}
                                 handleEditar = {editar}
                                 handleEliminar = {eliminar}
                             />
@@ -109,93 +143,35 @@ function GestionEjercicios() {
                 titulo="Revisión de respuestas"
                 cerrar={cancelarVer} 
                 colorFondo={colors.verde}
+                aceptar={cancelarVer}
+                guardar={cancelarVer}
               >
                 <div className="bodyModal">
                 <div id="headRespuestas" className="introduccion">
-                    <h3>Ejercicio 1: Quiz de números - 20/07/2024</h3>
+                    <h3>{ejercicioSeleccionado}</h3>
                 </div>
-                
                 <div id="tablaRespuestas">
                     <div class="tabla-header">
                         <div>Alumno</div>
-                        <div>Resuelto</div>
-                        <div>Intentos</div>
+                        <div>Errores</div>
                         <div>Tiempo</div>
                         <div>Calificación</div>
                     </div>
 
-                    <div class="tabla-fila">
-                        <div>Borsella Franco Ezequiel</div>
-                        <div>Sí</div>
-                        <div>1</div>
-                        <div>00:35</div>
-                        <div>5 <span class="estrella">⭐</span></div>
+                    {detallesEjercicio.length > 0 ? (
+                        detallesEjercicio.map((detalle) => (
+                            <div className="tabla-fila" key={detalle.id}>
+                                <div>{detalle.name} {detalle.lastName}</div>
+                                <div>{detalle.numberOfAttempts}</div>
+                                <div>{detalle.timeOfResolution > 0 ? formatTime(detalle.timeOfResolution): '-'}</div>
+                                <div>{detalle.score}/5<span className="estrella">⭐</span></div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No hay intentos registrados para este ejercicio.</p>
+                    )}
                     </div>
-
-                    <div class="tabla-fila">
-                        <div>Etcheverry Juan Ignacio</div>
-                        <div>Sí</div>
-                        <div>2</div>
-                        <div>00:50</div>
-                        <div>4 <span class="estrella">⭐</span></div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Batista Matías Omar</div>
-                        <div>No</div>
-                        <div>-</div>
-                        <div>-</div>
-                        <div>-</div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Valero Cintia Milagros</div>
-                        <div>Sí</div>
-                        <div>4</div>
-                        <div>01:24</div>
-                        <div>1 <span class="estrella">⭐</span></div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Valero Cintia Milagros</div>
-                        <div>Sí</div>
-                        <div>4</div>
-                        <div>01:24</div>
-                        <div>1 <span class="estrella">⭐</span></div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Valero Cintia Milagros</div>
-                        <div>Sí</div>
-                        <div>4</div>
-                        <div>01:24</div>
-                        <div>1 <span class="estrella">⭐</span></div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Valero Cintia Milagros</div>
-                        <div>Sí</div>
-                        <div>4</div>
-                        <div>01:24</div>
-                        <div>1 <span class="estrella">⭐</span></div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Valero Cintia Milagros</div>
-                        <div>Sí</div>
-                        <div>4</div>
-                        <div>01:24</div>
-                        <div>1 <span class="estrella">⭐</span></div>
-                    </div>
-
-                    <div class="tabla-fila">
-                        <div>Valero Cintia Milagros</div>
-                        <div>Sí</div>
-                        <div>4</div>
-                        <div>01:24</div>
-                        <div>1 <span class="estrella">⭐</span></div>
-                    </div>
-                    </div>
+                    <p className="textoTotalAlumnos">Total de alumnos que resolvieron este ejercicio: {detallesEjercicio.length}</p>
                 </div>
               </ModalGrande>
             )}
