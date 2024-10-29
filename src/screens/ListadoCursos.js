@@ -37,7 +37,13 @@ function ListadoCursos() {
     };
 
     const [popupEditar, setPopupEditar] = useState(false);    
-    const editar = () => { setPopupEditar(true); };
+    const editar = (curso) => {
+      setCursoSeleccionado(curso);
+      setAnio(curso.level);
+      setDivision(curso.division);
+      setCicloLectivo(curso.academicYear);
+      setPopupEditar(true); 
+    };
     const cancelarEditar = () => { setPopupEditar(false); };
 
     const [popupEliminar, setPopupEliminar] = useState(false);    
@@ -116,6 +122,32 @@ function ListadoCursos() {
       }
     };
 
+    //Petición para modificar un curso
+    const editarCurso = async (e) => {
+      e.preventDefault();
+
+      const cursoData = {
+        academicYear: cicloLectivo,
+        division: division,
+        level: anio,
+        teacherId: idDocente
+      };
+
+      try {
+        const response = await axios.put(`${API_URL}/course/update?id=${cursoSeleccionado.id}`, cursoData, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        console.log('Curso actualizado: ', response.data);
+        getCursos();
+        cancelarEditar();
+      } catch (error) {
+        console.error('Error al actualizar el curso: ', error);
+      }
+    }
+
     //Eliminar curso
     const eliminarCurso = async (idCurso) => {
       try {
@@ -147,9 +179,9 @@ function ListadoCursos() {
                       {cursos.map((curso) => (
                         <CursoCard
                           key={curso.id}
-                          añoDivision={`${curso.level.slice(-1)}°${curso.division}`}
+                          añoDivision={`${curso.level ? curso.level.slice(-1) : ''}°${curso.division}`}
                           handleVerCurso={(e) => handleAlumnos(e, curso.id)}
-                          handleEditar={editar}
+                          handleEditar={() => editar(curso)}
                           handleEliminar={() => eliminar(curso.id)}
                         />
                       ))}
@@ -176,26 +208,30 @@ function ListadoCursos() {
                 titulo="Editar un curso"
                 cerrar={cancelarEditar} 
                 colorFondo={colors.celesteOscuro}
+                aceptar={editarCurso}
             >
             <div className="bodyModal">
                   <div id="headCurso" className="introduccion">
-                    <p>Está modificando los datos del curso:<b> 1° A</b></p>
+                    <p>
+                      Está modificando los datos del curso:
+                      <b> {cursoSeleccionado && cursoSeleccionado.level ? `${cursoSeleccionado.level.slice(-1)}° ${cursoSeleccionado.division}` : ''}</b>
+                    </p>
                   </div>
-                  <form id="formCurso">
+                  <form id="formCurso" onSubmit={editarCurso}>
                     <div className="input">
                       <label>Año</label>
-                      <select>
+                      <select value={anio} onChange={(e) => setAnio(e.target.value)}>
                         <option value="" disabled>Seleccione</option>
-                        <option value="LEVEL_1" selected>Nivel 1</option>
+                        <option value="LEVEL_1">Nivel 1</option>
                         <option value="LEVEL_2">Nivel 2</option>
-                        <option value="LEVEL_3">Nivel 2</option>
+                        <option value="LEVEL_3">Nivel 3</option>
                       </select>
                     </div>
                     <div className="input">
                       <label>División</label>
-                      <select>
+                      <select value={division} onChange={(e) => setDivision(e.target.value)}>
                         <option value="" disabled>Seleccione</option>
-                        <option value="A" selected>A</option>
+                        <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
                         <option value="D">D</option>
@@ -203,9 +239,8 @@ function ListadoCursos() {
                     </div>
                     <div className="input">
                       <label>Ciclo Lectivo</label>
-                      <select>
+                      <select value={cicloLectivo} onChange={(e) => setCicloLectivo(e.target.value)}>
                         <option value="" disabled >Seleccione</option>
-                        <option value="2023">2023</option>
                         <option value="2024" selected>2024</option>
                       </select>
                     </div>
