@@ -22,6 +22,7 @@ function GestionEjercicios() {
     const [error, setError] = useState(null);
     const [detallesEjercicio, setDetallesEjercicio] = useState([]);
     const [ejercicioSeleccionado, setEjercicioSeleccionado] = useState(null);
+    const [idEjercicioSeleccionado, setIdEjercicioSeleccionado] = useState(null);
 
     const [popupEditar, setPopupEditar] = useState(false);    
     const editar = () => { setPopupEditar(true); };
@@ -36,7 +37,10 @@ function GestionEjercicios() {
     const cancelarVer = () => { setPopupVer (false); };
 
     const [popupEliminar, setPopupEliminar] = useState(false);    
-    const eliminar = () => { setPopupEliminar(true); };
+    const eliminar = (idEjercicio) => {
+        setIdEjercicioSeleccionado(idEjercicio); 
+        setPopupEliminar(true); 
+    };
     const cancelarEliminar = () => { setPopupEliminar(false); };
 
     const [popupAgregar, setPopupAgregar] = useState(false);    
@@ -86,6 +90,22 @@ function GestionEjercicios() {
         getEjercicios();
     }, [idCurso, idActividad, token]);
 
+    //Eliminar ejercicio
+    const eliminarEjercicio = async (idEjercicio) => {
+        try {
+            const response = await axios.delete(`${API_URL}/exercises?exerciseId=${idEjercicio}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            console.log('Ejercicio eliminado: ', response.data);
+            getEjercicios();
+            cancelarEliminar();
+        } catch (error) {
+            console.log('Error al eliminar el ejercicio: ', error);
+        }
+    };
+
     //Función para formatear el tiempo de resolución
     const formatTime = (miliseconds) => {
         const totalSeconds = Math.floor(miliseconds / 1000);
@@ -117,7 +137,7 @@ function GestionEjercicios() {
                                 nombre = {ejercicio.title}
                                 handleVerIntentos = {() => ver(ejercicio.id, ejercicio.title)}
                                 handleEditar = {editar}
-                                handleEliminar = {eliminar}
+                                handleEliminar = {() => eliminar(ejercicio.id)}
                             />
                         ))}
                     </div>
@@ -129,6 +149,7 @@ function GestionEjercicios() {
                 titulo="Eliminar ejercicio"
                 cerrar={cancelarEliminar} 
                 colorFondo={colors.rojo}
+                aceptar={() => eliminarEjercicio(idEjercicioSeleccionado)}
               >
                 <div className="bodyModal">
                     <p style={{padding:' 0 30px', textAlign:'left',}}>
