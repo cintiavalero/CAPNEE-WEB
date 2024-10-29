@@ -20,7 +20,7 @@ function GestionAlumnos() {
     const [error, setError] = useState(null);
 
     //Recuperar id de curso
-    const { idCurso } = useParams();
+    const { idCurso, idUsuario } = useParams();
 
     //Valores del formulario de alta
     const [nombre, setNombre] = useState('');
@@ -35,9 +35,8 @@ function GestionAlumnos() {
     //Navegar al perfil de un alumno
     const navigate = useNavigate();
 
-    const verPerfil = (e) => {
-      e.preventDefault();
-      navigate('/perfil');
+    const verPerfil = (idUsuario) => {
+      navigate(`/perfil/${idUsuario}`);
     }
 
     const [popupEditar, setPopupEditar] = useState(false);    
@@ -187,7 +186,7 @@ function GestionAlumnos() {
                           usuario={alumno.username}
                           dni={alumno.dni}
                           fechaNacimiento={alumno.birthdate}
-                          handleVerAlumno={verPerfil}
+                          handleVerAlumno={() => verPerfil(alumno.id)}
                           handleEditar={() => editar(`${alumno.name} ${alumno.lastName}`)}
                           handleEliminar={() => eliminar(`${alumno.name} ${alumno.lastName}`, alumno.id)}
                         />
