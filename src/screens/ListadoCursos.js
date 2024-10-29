@@ -110,6 +110,7 @@ function ListadoCursos() {
         });
         console.log('Curso creado: ', response.data);
         getCursos();
+        cancelarAgregar();
       } catch (error) {
         console.log('Error al crear el curso: ', error);
       }
