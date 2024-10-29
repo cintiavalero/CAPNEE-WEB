@@ -4,7 +4,6 @@ import Navbar from "../components/NavbarVertical";
 import ActividadCard from "../components/ActividadCard";
 import "./general.css";
 import "./Styles/GestionActividades.css";
-import iconoEjercicio from '../assets/icon-book.png';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";

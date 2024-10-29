@@ -73,8 +73,8 @@ function GestionEjercicios() {
                 <h1 className="titulo">Administración de actividades del curso</h1>
                 <h2><b>{nombreActividad}:</b> Lista de ejercicios</h2>
                 <div className="contenido">
-                    <p id="cantidadEjercicios"><b> Cantidad de ejercicios cargados: {ejercicios.length}</b></p>
                     <div className="listaEjercicios">
+                    <p id="cantidadEjercicios"><b> Cantidad de ejercicios cargados: {ejercicios.length}</b></p>
                         {loading ? <p>Cargando Ejercicios</p> : <p> </p>}
                         {ejercicios.length === 0 ? <p>Aún no hay ejercicios cargados</p> : <p> </p>}
                         {ejercicios.map((ejercicio) => (
@@ -155,6 +155,46 @@ function GestionEjercicios() {
                         <div>01:24</div>
                         <div>1 <span class="estrella">⭐</span></div>
                     </div>
+
+                    <div class="tabla-fila">
+                        <div>Valero Cintia Milagros</div>
+                        <div>Sí</div>
+                        <div>4</div>
+                        <div>01:24</div>
+                        <div>1 <span class="estrella">⭐</span></div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Valero Cintia Milagros</div>
+                        <div>Sí</div>
+                        <div>4</div>
+                        <div>01:24</div>
+                        <div>1 <span class="estrella">⭐</span></div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Valero Cintia Milagros</div>
+                        <div>Sí</div>
+                        <div>4</div>
+                        <div>01:24</div>
+                        <div>1 <span class="estrella">⭐</span></div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Valero Cintia Milagros</div>
+                        <div>Sí</div>
+                        <div>4</div>
+                        <div>01:24</div>
+                        <div>1 <span class="estrella">⭐</span></div>
+                    </div>
+
+                    <div class="tabla-fila">
+                        <div>Valero Cintia Milagros</div>
+                        <div>Sí</div>
+                        <div>4</div>
+                        <div>01:24</div>
+                        <div>1 <span class="estrella">⭐</span></div>
+                    </div>
                     </div>
                 </div>
               </ModalGrande>
@@ -220,7 +260,7 @@ function GestionEjercicios() {
   >
     <div className="bodyModal">
       <div id="headEjercicio" className="introduccion">
-        <p>Está modificado el ejercicio: 1</p>
+        <p>Está modificado el ejercicio: </p>
       </div>
       <form id="formEjercicio">
         <section>

@@ -83,6 +83,11 @@
     height: 25px;
 }
 
+.gestionAlumnos #cantidadEjercicios{
+    text-align: left;
+    margin-bottom: 20px;
+}
+
 
 #headAlumno {
     text-align: left;

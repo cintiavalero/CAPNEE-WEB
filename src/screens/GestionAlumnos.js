@@ -144,6 +144,7 @@ function GestionAlumnos() {
         });
         console.log('Alumno creado: ', response.data);
         getAlumnos();
+        cancelarAgregar();
       } catch (error) {
         console.log('Error al crear el alumno: ', error);
       }
@@ -158,6 +159,7 @@ function GestionAlumnos() {
                 <h1 className="titulo">Gestión de alumnos: 1°A - 2024</h1>
                 <div className="contenido">
                     <div className="listaAlumnos">
+                      <p id="cantidadEjercicios"><b> Cantidad de alumnos del curso: {alumnos.length}</b></p>
                       {loading ? <p>Cargando alumnos</p> : <p> </p>}
                       {alumnos.length === 0 ? <p>No hay alumnos asociados a este curso</p> : <p></p>}
                       {alumnos.map((alumno) => (
