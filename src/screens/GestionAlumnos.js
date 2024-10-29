@@ -36,7 +36,7 @@ function GestionAlumnos() {
     const navigate = useNavigate();
 
     const verPerfil = (idUsuario) => {
-      navigate(`/perfil/${idUsuario}`);
+      navigate(`/perfil/${idCurso}/${idUsuario}`);
     }
 
     const [popupEditar, setPopupEditar] = useState(false);    

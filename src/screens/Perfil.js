@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
 import "./Styles/Perfil.css";
+import { useNavigate, useParams } from 'react-router-dom';
 import "./general.css";
+const API_URL = 'http://149.50.140.55:8082';
 
 function Perfil() {
     const [openSections, setOpenSections] = useState({
