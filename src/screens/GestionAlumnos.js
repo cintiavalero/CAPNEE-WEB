@@ -14,6 +14,7 @@ import axios from "axios";
 const API_URL = 'http://149.50.140.55:8081';
 
 function GestionAlumnos() {
+    const [curso, setCurso] = useState('');
     const [alumnos, setAlumnos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -67,6 +68,22 @@ function GestionAlumnos() {
     //Recuperar token
     const token = localStorage.getItem('token');
 
+    //Petición para obtener un curso por id
+    const getCurso = async (idCurso) => {
+      try {
+        const response = await axios.get(`${API_URL}/course/get-by-id?id=${idCurso}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setCurso(`${response.data.level.slice(-1)}°${response.data.division} - ${response.data.academicYear}`);
+        setLoading(false);
+      } catch (error) {
+        setError('Error al cargar el curso');
+        setLoading(false);
+      }
+    }
+
     //Petición para obtener alumnos asociados a un curso
     const getAlumnos = async () => {
       try {
@@ -84,8 +101,9 @@ function GestionAlumnos() {
     };
 
     useEffect(() => {
+      getCurso(idCurso);
       getAlumnos();
-    }, []);
+    }, [idCurso]);
 
     //Petición para eliminar alumno
     const eliminarAlumno = async (idAlumno) => {
@@ -156,7 +174,7 @@ function GestionAlumnos() {
                 <Navbar/>
             </div>
             <body className="gestionAlumnos">
-                <h1 className="titulo">Gestión de alumnos: 1°A - 2024</h1>
+                <h1 className="titulo">Gestión de alumnos: {curso}</h1>
                 <div className="contenido">
                     <div className="listaAlumnos">
                       <p id="cantidadEjercicios"><b> Cantidad de alumnos del curso: {alumnos.length}</b></p>
