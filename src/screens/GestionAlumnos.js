@@ -4,14 +4,11 @@ import Navbar from "../components/NavbarVertical";
 import Agregar from "../components/BotonAgregar";
 import "./general.css";
 import "./Styles/GestionAlumnos.css";
-import iconoFlecha from '../assets/icon-flecha.png'; 
-import iconoEditar from '../assets/icon-editar.png'; 
-import iconoEliminar from '../assets/icon-trash.png'; 
 import ModalChico from "../components/ModalChico"; 
 import ModalMediano from "../components/ModalMediano";
 import AlumnoCard from "../components/AlumnoCard";
 import colors from "../constants/colors";
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 
 const API_URL = 'http://149.50.140.55:8081';
@@ -194,7 +191,7 @@ function GestionAlumnos() {
                     <div>
                         <input placeholder="Apellido"/>
                         <input placeholder="Contraseña"/>
-                        <input placeholder="dd/mm/aa"/>
+                        <input placeholder="dd-mm-aa"/>
                     </div>
                   </form>
                 </div>
@@ -225,7 +222,7 @@ function GestionAlumnos() {
                         {errors.apellido && <p style={{ fontSize: '9px', color: 'red' }}>{errors.apellido}</p>}
                         <input placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)} required/>
                         {errors.contrasena && <p style={{ fontSize: '9px', color: 'red' }}>{errors.contrasena}</p>}
-                        <input placeholder="aaaa/mm/dd" value={fechanacimiento} onChange={(e) => setFechanacimiento(e.target.value)} required/>
+                        <input placeholder="aaaa-mm-dd" value={fechanacimiento} onChange={(e) => setFechanacimiento(e.target.value)} required/>
                         {errors.fechanacimiento && <p style={{ fontSize: '9px', color: 'red' }}>{errors.fechanacimiento}</p>}
                     </div>
                   </form>

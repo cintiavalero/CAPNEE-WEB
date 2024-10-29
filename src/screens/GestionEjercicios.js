@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
+import CartaEjercicio from "../components/EjercicioCard";
+
 import "./general.css";
 import "./Styles/GestionEjercicios.css";
 import Agregar from "../components/BotonAgregar";
-import iconoFlecha from '../assets/icon-flecha.png'; 
-import iconoEditar from '../assets/icon-editar.png'; 
-import iconoEliminar from '../assets/icon-trash.png'; 
 import ModalChico from "../components/ModalChico"; 
 import ModalMediano from "../components/ModalMediano"; 
 import ModalGrande from "../components/ModalGrande"; 
 import colors from "../constants/colors";
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
+const API_URL = 'http://149.50.140.55:8082';
 
 function GestionEjercicios() {
+    const [nombreActividad, setNombreActividad] = useState('');
+    const [ejercicios, setEjercicios] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const [popupEditar, setPopupEditar] = useState(false);    
     const editar = () => { setPopupEditar(true); };
@@ -31,6 +37,33 @@ function GestionEjercicios() {
     const agregar = () => { setPopupAgregar(true); };
     const cancelarAgregar = () => { setPopupAgregar(false); };
 
+    //Recuperar parámetros de ruta
+    const { idCurso, idActividad } = useParams();
+
+    //Recuperar token
+    const token = localStorage.getItem('token');
+
+    //Petición para obtener ejercicios
+    const getEjercicios = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/exercises/get-all-by-course-id-and-thematic-content-id?courseId=${idCurso}&thematicContentId=${idActividad}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setNombreActividad(response.data.thematicContent);
+            setEjercicios(response.data.exercises);
+            setLoading(false);
+        } catch (error) {
+            setError('Error al cargar los bloques');
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        getEjercicios();
+    }, [idCurso, idActividad, token])
+
     return (
         <Fondo >
             <div className="header-vertical">
@@ -38,52 +71,21 @@ function GestionEjercicios() {
             </div>
             <body className="gestionEjercicios">
                 <h1 className="titulo">Administración de actividades del curso</h1>
-                <h2>Usar y conocer los números: Lista de ejercicios</h2>
+                <h2><b>{nombreActividad}:</b> Lista de ejercicios</h2>
                 <div className="contenido">
-                    <p id="cantidadEjercicios"><b> Cantidad de ejercicios cargados: 3</b></p>
+                    <p id="cantidadEjercicios"><b> Cantidad de ejercicios cargados: {ejercicios.length}</b></p>
                     <div className="listaEjercicios">
-                        <article className="ejercicio">
-                            <p> <b> Ejercicio 1: </b> Quiz números I - 24/07/2024</p>
-                            <div className="accionesEjercicio">
-                                <button  onClick={ver}>
-                                    <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
-                                </button>
-                                <button  onClick={editar}>
-                                    <img className="icono" src={iconoEditar} alt="Ícono editar" /> 
-                                </button>
-                                <button onClick={eliminar}>
-                                    <img className="icono" src={iconoEliminar} alt="Ícono eliminar" />                                     
-                                </button>                                    
-                            </div>
-                        </article>
-                        <article className="ejercicio">
-                            <p><b> Ejercicio 2: </b>Quiz números II - 24/07/2024</p>
-                            <div className="accionesEjercicio">
-                                <button  onClick={ver}>
-                                    <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
-                                </button>
-                                <button  onClick={editar}>
-                                    <img className="icono" src={iconoEditar} alt="Ícono editar" /> 
-                                </button>
-                                <button onClick={eliminar}>
-                                    <img className="icono" src={iconoEliminar} alt="Ícono eliminar" />                                     
-                                </button>                                 
-                            </div>
-                        </article>
-                        <article className="ejercicio">
-                            <p><b> Ejercicio 3: </b>Quiz números III - 24/07/2024</p>
-                            <div className="accionesEjercicio">
-                                <button  onClick={ver}>
-                                    <img className="icono" src={iconoFlecha} alt="Ícono flecha" /> 
-                                </button>
-                                <button  onClick={editar}>
-                                    <img className="icono" src={iconoEditar} alt="Ícono editar" /> 
-                                </button>
-                                <button onClick={eliminar}>
-                                    <img className="icono" src={iconoEliminar} alt="Ícono eliminar" />                                     
-                                </button>                                
-                            </div>
-                        </article>
+                        {loading ? <p>Cargando Ejercicios</p> : <p> </p>}
+                        {ejercicios.length === 0 ? <p>Aún no hay ejercicios cargados</p> : <p> </p>}
+                        {ejercicios.map((ejercicio) => (
+                            <CartaEjercicio
+                                key = {ejercicio.id}
+                                nombre = {ejercicio.title}
+                                handleVerIntentos = {ver}
+                                handleEditar = {editar}
+                                handleEliminar = {eliminar}
+                            />
+                        ))}
                     </div>
                     <Agregar onClick={agregar}/>
                 </div>
