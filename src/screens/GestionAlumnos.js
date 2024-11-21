@@ -16,6 +16,19 @@ import "react-toastify/dist/ReactToastify.css";
 const API_URL = 'http://149.50.140.55:8081';
 
 function GestionAlumnos() {
+
+  const mostrarExito = (mensaje) => {
+    toast.success(mensaje, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
     const [curso, setCurso] = useState('');
     const [alumnos, setAlumnos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -159,6 +172,7 @@ function GestionAlumnos() {
         console.log('Alumno creado: ', response.data);
         getAlumnos();
         cancelarAgregar();
+        mostrarExito('Se agregó un alumno/a a la lista 🥰')
       } catch (error) {
         console.log('Error al crear el alumno: ', error);
         mostrarError("Error al crear el alumnno: 👀", error.response.data.message)

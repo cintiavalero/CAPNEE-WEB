@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
 import CartaEjercicio from "../components/EjercicioCard";
-
 import "./general.css";
 import "./Styles/GestionEjercicios.css";
 import Agregar from "../components/BotonAgregar";
@@ -19,7 +18,7 @@ const API_URL = 'http://149.50.140.55:8082';
 
 function GestionEjercicios() {
 
-      // Función para mostrar la alerta flotante de error
+    // Función para mostrar la alerta flotante de error
   const mostrarError = (mensaje) => {
     toast.error(mensaje, {
       position: "top-center",
@@ -31,6 +30,18 @@ function GestionEjercicios() {
       progress: undefined,
     });
   };
+  const mostrarExito = (mensaje) => {
+    toast.success(mensaje, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  
     const { idCurso, idActividad } = useParams();   
 
     const [nombreActividad, setNombreActividad] = useState('');
@@ -152,12 +163,11 @@ function GestionEjercicios() {
           });
       
           if (response.status === 200) {
-            // Si la respuesta es exitosa, actualiza los ejercicios y cierra el modal
             getEjercicios();
             cancelarEditar();
             alert('Los cambios se han guardado correctamente');
           } else {
-            alert('Hubo un problema al guardar los cambios');
+            mostrarError("Hubo un problema al guardar los datos: 😓 ")
           }
         } catch (error) {
             console.error('Error al guardar los cambios: ', error);
@@ -217,6 +227,7 @@ function GestionEjercicios() {
             console.log('Ejercicio creado: ', response.data);
             getEjercicios();
             cancelarAgregar();
+            mostrarExito('Se creó el ejercicio correctamente 😀')
         } catch (error) {
             console.log('Error al crear el ejercicio: ', error);
             mostrarError("Error al crear el ejercicio: ",error.response.data.message)
