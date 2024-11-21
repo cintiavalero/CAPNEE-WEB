@@ -321,7 +321,7 @@ function GestionEjercicios() {
                 <div id="tablaRespuestas">
                     <div class="tabla-header">
                         <div>Alumno</div>
-                        <div>Errores</div>
+                        <div>Intentos</div>
                         <div>Tiempo</div>
                         <div>Calificación</div>
                     </div>
@@ -331,7 +331,7 @@ function GestionEjercicios() {
                             <div className="tabla-fila" key={detalle.id}>
                                 <div>{detalle.name} {detalle.lastName}</div>
                                 <div>{detalle.numberOfAttempts}</div>
-                                <div>{detalle.timeOfResolution > 0 ? formatTime(detalle.timeOfResolution): '-'}</div>
+                                <div>{detalle.timeOfResolution > 0 ? detalle.timeOfResolution/1000 + ' seg': '-'}</div>
                                 <div>{detalle.score }/5<span className="estrella">⭐</span></div>
                             </div>
                         ))

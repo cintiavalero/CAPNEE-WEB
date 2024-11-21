@@ -137,7 +137,7 @@ function Perfil() {
                                                                                             <td>{exercise.statement}</td>
                                                                                             <td>{exercise.resolved ? "Sí" : "No"}</td>
                                                                                             <td>{exercise.numberOfAttempts}</td>
-                                                                                            <td>{exercise.resolutionTime}s</td>
+                                                                                            <td>{exercise.resolutionTime/1000} seg</td>
                                                                                             <td>{exercise.score}⭐</td>
                                                                                         </tr>
                                                                                     ))}

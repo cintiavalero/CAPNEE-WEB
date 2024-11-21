@@ -77,7 +77,7 @@ function GestionAlumnos() {
 
     const [popupAgregar, setPopupAgregar] = useState(false);    
     const agregar = () => { setPopupAgregar(true); };
-    const cancelarAgregar = () => { setPopupAgregar(false); setErrors({});};
+    const cancelarAgregar = () => { setPopupAgregar(false); setErrors({}); setAlumnoSeleccionado({})};
     
   // Función para mostrar la alerta flotante de error
   const mostrarError = (mensaje) => {
