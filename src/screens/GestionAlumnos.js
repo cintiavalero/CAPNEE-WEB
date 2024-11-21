@@ -10,6 +10,8 @@ import AlumnoCard from "../components/AlumnoCard";
 import colors from "../constants/colors";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = 'http://149.50.140.55:8081';
 
@@ -64,6 +66,18 @@ function GestionAlumnos() {
     const agregar = () => { setPopupAgregar(true); };
     const cancelarAgregar = () => { setPopupAgregar(false); setErrors({});};
     
+  // Función para mostrar la alerta flotante de error
+  const mostrarError = (mensaje) => {
+    toast.error(mensaje, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
     const token = localStorage.getItem('token');
 
     //Petición para obtener un curso por id
@@ -147,6 +161,7 @@ function GestionAlumnos() {
         cancelarAgregar();
       } catch (error) {
         console.log('Error al crear el alumno: ', error);
+        mostrarError(error.response.data.message)
       }
     }
 
@@ -185,6 +200,8 @@ function GestionAlumnos() {
 
     return (
         <Fondo >
+                <ToastContainer />
+
             <div className="header-vertical">
                 <Navbar/>
             </div>
