@@ -16,16 +16,32 @@ import axios from "axios";
 const API_URL = 'http://149.50.140.55:8082';
 
 function GestionEjercicios() {
+    const { idCurso, idActividad } = useParams();   
+
     const [nombreActividad, setNombreActividad] = useState('');
     const [ejercicios, setEjercicios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [detallesEjercicio, setDetallesEjercicio] = useState([]);
+    const [ejercicio, setEjercicio] = useState({
+        title: "",
+        statement: "",
+        options: ["", "", "", ""],
+        correctOptionPosition: 0,
+        attachedImageBase64: "",
+        courseId: null,
+        thematicContentId: null
+    });
     const [ejercicioSeleccionado, setEjercicioSeleccionado] = useState(null);
     const [idEjercicioSeleccionado, setIdEjercicioSeleccionado] = useState(null);
 
     const [popupEditar, setPopupEditar] = useState(false);    
-    const editar = () => { setPopupEditar(true); };
+    const editar = (idEjercicio, nombreEjercicio) => {
+        getEjercicio(idEjercicio); 
+        setEjercicioSeleccionado(nombreEjercicio);
+        setIdEjercicioSeleccionado(idEjercicio); 
+        setPopupEditar(true); 
+    }; 
     const cancelarEditar = () => { setPopupEditar(false); };
 
     const [popupVer, setPopupVer] = useState(false);    
@@ -54,10 +70,6 @@ function GestionEjercicios() {
     const [opciones, setOpciones] = useState(['', '', '', '']);
     const [indiceOpcionCorrecta, setIndiceOpcionCorrecta] = useState(null);
 
-    //Recuperar parámetros de ruta
-    const { idCurso, idActividad } = useParams();
-
-    //Recuperar token
     const token = localStorage.getItem('token');
 
     //Petición para obtener ejercicios
@@ -76,9 +88,11 @@ function GestionEjercicios() {
             setLoading(false);
         }
     }
+    useEffect(() => {
+        getEjercicios();
+    }, [idCurso, idActividad, token]);
 
     //Petición para obtener los resultados de un ejercicio
-
     const getDetallesEjercicio = async (idEjercicio) => {
         try {
             const response = await axios.get(`${API_URL}/exercises/students?exerciseId=${idEjercicio}`, {
@@ -92,10 +106,51 @@ function GestionEjercicios() {
             console.error('Error al obtener los detalles del ejercicio: ', error);
         }
     };
+    
+    // Petición para obtener los datos del ejercicio
+    const getEjercicio = async (idEjercicio) => {
+        try {
+            const response = await axios.get(`${API_URL}/exercises/get-by-id?id=${idEjercicio}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log('Ejercicio: ', response.data);
+            setEjercicio(response.data);
+        } catch (error) {
+            console.error('Error al obtener el ejercicio: ', error);
+        }
+    };
+    const guardarCambios = async (idEjercicio) => {
+        const nuevoEjercicio = {
+          ...ejercicio,
+          courseId: parseInt(idCurso), 
+          thematicContentId: parseInt(idActividad)  
+        };
+      
+        setEjercicio(nuevoEjercicio);  
+      
+        try {
+          const response = await axios.put(`${API_URL}/exercises/update?id=${idEjercicio}`, nuevoEjercicio, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+      
+          if (response.status === 200) {
+            // Si la respuesta es exitosa, actualiza los ejercicios y cierra el modal
+            getEjercicios();
+            cancelarEditar();
+            alert('Los cambios se han guardado correctamente');
+          } else {
+            alert('Hubo un problema al guardar los cambios');
+          }
+        } catch (error) {
+          console.error('Error al guardar los cambios: ', error);
+          alert('Ocurrió un error al guardar los cambios. Intente nuevamente');
+        }
+      };
+      
+      
 
-    useEffect(() => {
-        getEjercicios();
-    }, [idCurso, idActividad, token]);
 
     //Formulario de alta de ejercicio
     const handleImagenChange = (e) => {
@@ -154,7 +209,7 @@ function GestionEjercicios() {
     //Eliminar ejercicio
     const eliminarEjercicio = async (idEjercicio) => {
         try {
-            const response = await axios.delete(`${API_URL}/exercises?exerciseId=${idEjercicio}`, {
+            const response = await axios.delete(`${API_URL}/exercises/delete/${idEjercicio}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -194,17 +249,19 @@ function GestionEjercicios() {
                         {ejercicios.length === 0 ? <p>Aún no hay ejercicios cargados</p> : <p> </p>}
                         {ejercicios.map((ejercicio) => (
                             <CartaEjercicio
-                                key = {ejercicio.id}
-                                nombre = {ejercicio.title}
-                                handleVerIntentos = {() => ver(ejercicio.id, ejercicio.title)}
-                                handleEditar = {editar}
-                                handleEliminar = {() => eliminar(ejercicio.id)}
-                            />
+                                key={ejercicio.id}
+                                nombre={ejercicio.title}
+                                handleVerIntentos={() => ver(ejercicio.id, ejercicio.title)}
+                                handleEditar={() => editar(ejercicio.id)}
+                                handleEliminar={() => eliminar(ejercicio.id)}
+                        />
                         ))}
                     </div>
                     <Agregar onClick={agregar}/>
                 </div>
             </body>
+            
+
             {popupEliminar && (
               <ModalChico 
                 titulo="Eliminar ejercicio"
@@ -220,6 +277,8 @@ function GestionEjercicios() {
                 </div>
               </ModalChico>
             )}
+
+
             {popupVer && (
               <ModalGrande 
                 titulo="Revisión de respuestas"
@@ -257,121 +316,150 @@ function GestionEjercicios() {
                 </div>
               </ModalGrande>
             )}
+
+
             {popupAgregar && (
-  <ModalGrande 
-    titulo="Agregar un ejercicio nuevo"
-    cerrar={cancelarAgregar} 
-    colorFondo={colors.violeta}
-    aceptar={altaEjercicio}
-  >
-    <div className="bodyModal">
-      <div id="headEjercicio" className="introduccion">
-        <p>Para agregar un ejercicio nuevo, complete los siguientes campos:</p>
-      </div>
-      <form id="formEjercicio">
-        <section>
-            <div className="inputGroup tituloInput">
-                <label>Título del ejercicio:</label>
-                <input 
-                    type="text"
-                    value={titulo} 
-                    placeholder="Ingrese un título..."
-                    onChange={(e) => setTitulo(e.target.value)} 
-                />
-            </div>
-            <div className="inputGroup imagenInput">
-                <label>Imagen para la consigna:</label>
-                <input type="file" accept="image/*" onChange={handleImagenChange} />
-            </div>
-        </section>
-        <section>
-            <div className="inputGroup descripcionInput">
-                <label>Enunciado:</label>
-                <textarea 
-                    value={enunciado}
-                    onChange={(e) => setEnunciado(e.target.value)}
-                    placeholder="Descripción del ejercicio...">    
-                </textarea>
-            </div>
+            <ModalGrande 
+                titulo="Agregar un ejercicio nuevo"
+                cerrar={cancelarAgregar} 
+                colorFondo={colors.violeta}
+                aceptar={altaEjercicio}
+            >
+                <div className="bodyModal">
+                <div id="headEjercicio" className="introduccion">
+                    <p>Para agregar un ejercicio nuevo, complete los siguientes campos:</p>
+                </div>
+                <form id="formEjercicio">
+                    <section>
+                        <div className="inputGroup tituloInput">
+                            <label>Título del ejercicio:</label>
+                            <input 
+                                type="text"
+                                value={titulo} 
+                                placeholder="Ingrese un título..."
+                                onChange={(e) => setTitulo(e.target.value)} 
+                            />
+                        </div>
+                        <div className="inputGroup imagenInput">
+                            <label>Imagen para la consigna:</label>
+                            <input type="file" accept="image/*" onChange={handleImagenChange} />
+                        </div>
+                    </section>
+                    <section>
+                        <div className="inputGroup descripcionInput">
+                            <label>Enunciado:</label>
+                            <textarea 
+                                value={enunciado}
+                                onChange={(e) => setEnunciado(e.target.value)}
+                                placeholder="Descripción del ejercicio...">    
+                            </textarea>
+                        </div>
 
-            <div className="opcionesRespuesta">
-                <label>Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):</label>
-                {opciones.map((opcion, index) => (
-                    <div className="opcion" key={index}>
+                        <div className="opcionesRespuesta">
+                            <label>Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):</label>
+                            {opciones.map((opcion, index) => (
+                                <div className="opcion" key={index}>
+                                    <input 
+                                        type="radio" 
+                                        name="respuestaCorrecta" 
+                                        checked={indiceOpcionCorrecta === index} 
+                                        onChange={() => handleRadioChange(index)} 
+                                    />
+                                    <input 
+                                        type="text"
+                                        value={opcion.texto}
+                                        onChange={(e) => handleOpcionChange(index, e.target.value)} 
+                                        placeholder={`Opción ${index + 1}`} 
+                                    />
+                                    {/* <button className="eliminarOpcion">-</button> */}
+                                </div>
+                            ))}
+                            {console.log('Opcion correcta: ', indiceOpcionCorrecta)}                
+                        </div>
+                    </section>
+                </form>
+                </div>
+            </ModalGrande>
+            )}
+
+            
+{popupEditar && (
+    <ModalGrande 
+        titulo="Modificar ejercicio "
+        cerrar={cancelarEditar} 
+        colorFondo={colors.celesteOscuro}
+        aceptar={() => guardarCambios(idEjercicioSeleccionado)}
+    >
+        <div className="bodyModal">
+            <div id="headEjercicio" className="introduccion">
+                <p>Está modificando el ejercicio: {ejercicio.title}</p>
+            </div>
+            <form id="formEjercicio">
+                <section>
+                    <div className="inputGroup tituloInput">
+                        <label>Título del ejercicio:</label>
                         <input 
-                            type="radio" 
-                            name="respuestaCorrecta" 
-                            checked={indiceOpcionCorrecta === index} 
-                            onChange={() => handleRadioChange(index)} 
+                            type="text" 
+                            placeholder="Ingrese un título..." 
+                            value={ejercicio.title} 
+                            onChange={(e) => setEjercicio({ ...ejercicio, title: e.target.value })} 
                         />
-                        <input 
-                            type="text"
-                            value={opcion.texto}
-                            onChange={(e) => handleOpcionChange(index, e.target.value)} 
-                            placeholder={`Opción ${index + 1}`} 
-                        />
-                        {/* <button className="eliminarOpcion">-</button> */}
                     </div>
-                ))}
-                {console.log('Opcion correcta: ', indiceOpcionCorrecta)}                
-            </div>
-        </section>
-      </form>
-    </div>
-  </ModalGrande>
-)}
- {popupEditar && (
-  <ModalGrande 
-    titulo="Modificar ejercicio "
-    cerrar={cancelarEditar} 
-    colorFondo={colors.celesteOscuro}
-  >
-    <div className="bodyModal">
-      <div id="headEjercicio" className="introduccion">
-        <p>Está modificado el ejercicio: </p>
-      </div>
-      <form id="formEjercicio">
-        <section>
-            <div className="inputGroup tituloInput">
-                <label>Título del ejercicio:</label>
-                <input type="text" placeholder="Ingrese un título..." />
-            </div>
-            <div className="inputGroup imagenInput">
-                <label>Imagen para la consigna:</label>
-                <button id="agregarImagen"> Agregar imagen </button>
-            </div>
-        </section>
-        <section>
-            <div className="inputGroup descripcionInput">
-                <label>Enunciado:</label>
-                <textarea placeholder="Descripción del ejercicio..."></textarea>
-            </div>
+                    <div className="inputGroup imagenInput">
+                        <label>Imagen para la consigna:</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                const reader = new FileReader();
+                                reader.onload = () => {
+                                    setEjercicio({ ...ejercicio, attachedImageBase64: reader.result });
+                                };
+                                reader.readAsDataURL(file);
+                            }}
+                        />
+                    </div>
+                </section>
+                <section>
+                    <div className="inputGroup descripcionInput">
+                        <label>Enunciado:</label>
+                        <textarea 
+                            placeholder="Descripción del ejercicio..."
+                            value={ejercicio.statement}
+                            onChange={(e) => setEjercicio({ ...ejercicio, statement: e.target.value })}
+                        ></textarea>
+                    </div>
 
-            <div className="opcionesRespuesta">
-                <label>Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):</label>
-                <div className="opcion">
-                    <input type="radio" name="respuestaCorrecta" />
-                    <input type="text" placeholder="Opción 1" />
-                    <button className="eliminarOpcion">-</button>
-                </div>
-                <div className="opcion">
-                    <input type="radio" name="respuestaCorrecta" />
-                    <input type="text" placeholder="Opción 2" />
-                    <button className="eliminarOpcion">-</button>
-                </div>
-                <div className="opcion">
-                    <input type="radio" name="respuestaCorrecta" />
-                    <input type="text" placeholder="Opción 2" />
-                    <button className="eliminarOpcion">-</button>
-                </div>
-                <button className="agregarOpcion">+</button>
-            </div>
-        </section>
-        
-       
-      </form>
-    </div>
-  </ModalGrande>
+                    <div className="opcionesRespuesta">
+                        <label>
+                            Opciones de respuesta (<span className="textoVerde">elija la correcta</span>):
+                        </label>
+                        {(ejercicio.options || []).map((opcion, index) => (
+                            <div className="opcion" key={index}>
+                                <input
+                                    type="radio"
+                                    name="respuestaCorrecta"
+                                    checked={ejercicio.correctOptionPosition === index}
+                                    onChange={() => setEjercicio({ ...ejercicio, correctOptionPosition: index })}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder={`Opción ${index + 1}`}
+                                    value={opcion}
+                                    onChange={(e) => {
+                                        const updatedOptions = [...ejercicio.options];
+                                        updatedOptions[index] = e.target.value;
+                                        setEjercicio({ ...ejercicio, options: updatedOptions });
+                                    }}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            </form>
+        </div>
+    </ModalGrande>
 )}
 
         </Fondo>
