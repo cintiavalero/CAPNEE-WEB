@@ -12,10 +12,25 @@ import ModalGrande from "../components/ModalGrande";
 import colors from "../constants/colors";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = 'http://149.50.140.55:8082';
 
 function GestionEjercicios() {
+
+      // Función para mostrar la alerta flotante de error
+  const mostrarError = (mensaje) => {
+    toast.error(mensaje, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
     const { idCurso, idActividad } = useParams();   
 
     const [nombreActividad, setNombreActividad] = useState('');
@@ -104,6 +119,7 @@ function GestionEjercicios() {
             setDetallesEjercicio(response.data);
         } catch (error) {
             console.error('Error al obtener los detalles del ejercicio: ', error);
+            mostrarError('Error inesperado 😨')
         }
     };
     
@@ -144,8 +160,8 @@ function GestionEjercicios() {
             alert('Hubo un problema al guardar los cambios');
           }
         } catch (error) {
-          console.error('Error al guardar los cambios: ', error);
-          alert('Ocurrió un error al guardar los cambios. Intente nuevamente');
+            console.error('Error al guardar los cambios: ', error);
+            mostrarError("Error al editar: 😓 ", error.response.data.message)
         }
       };
       
@@ -203,6 +219,7 @@ function GestionEjercicios() {
             cancelarAgregar();
         } catch (error) {
             console.log('Error al crear el ejercicio: ', error);
+            mostrarError("Error al crear el ejercicio: ",error.response.data.message)
         }
     };
 
@@ -219,6 +236,7 @@ function GestionEjercicios() {
             cancelarEliminar();
         } catch (error) {
             console.log('Error al eliminar el ejercicio: ', error);
+            mostrarError(error.response.data.message)
         }
     };
 
@@ -236,6 +254,8 @@ function GestionEjercicios() {
 
     return (
         <Fondo >
+            <ToastContainer />
+
             <div className="header-vertical">
                 <Navbar/>
             </div>
@@ -406,7 +426,9 @@ function GestionEjercicios() {
                         />
                     </div>
                     <div className="inputGroup imagenInput">
-                        <label>Imagen para la consigna:</label>
+                        <label style={{display: 'inline'}}>  Imagen para la consigna: 
+                            <small style={{display: 'inline',  fontWeight: 'normal'}}>{ejercicio.attachedImageBase64 ? " Tiene una imagen cargada" : ""}</small>
+                        </label>
                         <input
                             type="file"
                             accept="image/*"

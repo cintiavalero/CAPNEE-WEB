@@ -69,18 +69,23 @@
   }
   
   #formEjercicio .inputGroup label {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
   }
   
   #formEjercicio .inputGroup input,
   #formEjercicio .inputGroup textarea {
     padding: 10px;
-    border: 1px solid #a4a0a9;
     border-radius: 5px;
     font-size: 14px;
     height: 100%;
     width: 100%;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
   }
   #formEjercicio .tituloInput {
     display: flex;
@@ -107,11 +112,11 @@
   #formEjercicio .opcionesRespuesta {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 10px;
     flex-grow: 1;
   }
   #formEjercicio .opcionesRespuesta label{
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     text-align: left;
   }
@@ -119,13 +124,13 @@
   #formEjercicio .opcion {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
   }
   
   #formEjercicio .opcion input[type="text"] {
     flex: 1;
-    height: 13px;
-    padding: 10px;
+    height: 20px;
+    padding: 13px;
   }
   
   #formEjercicio .eliminarOpcion {
@@ -195,13 +200,37 @@
     align-items: center;
   }
   
-#tablaRespuestas   .estrella {
-    color: #FFD700; /* Color de la estrella dorada */
+#tablaRespuestas .estrella {
+    color: #FFD700;
     font-size: 1.2em;
     margin-left: 5px;
   }
   
-  /* Estilos responsivos para pantallas más pequeñas */
+
+
+  #formEjercicio input, #formEjercicio textarea{
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#formEjercicio input:focus,  #formEjercicio textarea:focus{
+    border-color: #b28cf6;
+    background-color: #ffffff; 
+    box-shadow: 0 0 5px rgba(178, 140, 246, 0.5);
+}
+
+#formEjercicio input::placeholder {
+    color: #a4a0a9;
+}
+
+
+
+
   @media (max-width: 768px) {
   #tablaRespuestas   .tabla-header, .tabla-fila {
       grid-template-columns: 1fr 1fr;

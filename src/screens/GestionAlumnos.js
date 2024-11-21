@@ -161,7 +161,7 @@ function GestionAlumnos() {
         cancelarAgregar();
       } catch (error) {
         console.log('Error al crear el alumno: ', error);
-        mostrarError(error.response.data.message)
+        mostrarError("Error al crear el alumnno: 👀", error.response.data.message)
       }
     }
 
