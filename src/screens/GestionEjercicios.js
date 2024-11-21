@@ -162,13 +162,9 @@ function GestionEjercicios() {
             headers: { Authorization: `Bearer ${token}` },
           });
       
-          if (response.status === 200) {
             getEjercicios();
             cancelarEditar();
-            alert('Los cambios se han guardado correctamente');
-          } else {
-            mostrarError("Hubo un problema al guardar los datos: 😓 ")
-          }
+            mostrarExito('Los cambios se han guardado correctamente');
         } catch (error) {
             console.error('Error al guardar los cambios: ', error);
             mostrarError("Error al editar: 😓 ", error.response.data.message)
