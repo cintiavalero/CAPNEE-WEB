@@ -246,7 +246,7 @@ function GestionEjercicios() {
                                 <div>{detalle.name} {detalle.lastName}</div>
                                 <div>{detalle.numberOfAttempts}</div>
                                 <div>{detalle.timeOfResolution > 0 ? formatTime(detalle.timeOfResolution): '-'}</div>
-                                <div>{detalle.score === 5.5 || detalle.score !== 0 ? (detalle.score - 0.5) : detalle.score }/5<span className="estrella">⭐</span></div>
+                                <div>{detalle.score }/5<span className="estrella">⭐</span></div>
                             </div>
                         ))
                     ) : (

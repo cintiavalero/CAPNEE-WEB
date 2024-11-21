@@ -95,7 +95,7 @@
 .perfil .tabla-academica table {
     border-collapse: collapse;
     margin: 10px 0;
-    width: 85%;
+    width: 90%;
     background-color: #ffffff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -108,7 +108,7 @@
     border-bottom: 1px solid #e3e3e3;
 }
 .perfil .tabla-academica th {
-    background-color: var(--celesteOscuro);
+    background-color: var(--violetaOscuro);
     color: #ffffff;
     font-weight: bold;
     letter-spacing: 0.05em;
