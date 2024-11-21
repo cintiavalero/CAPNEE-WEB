@@ -255,14 +255,28 @@ function GestionAlumnos() {
                   </div>
                   <form id="formAlumno">
                     <div>
-                        <input placeholder="Nombre"/>
-                        <input placeholder="Usuario"/>
-                        <input placeholder="DNI"/>
+                        <div className="datoAlumno">
+                          <input placeholder="Nombre"/>
+                        </div>
+                        <div className="datoAlumno">
+                          <input placeholder="Apellido"/>
+                        </div>
                     </div>
                     <div>
-                        <input placeholder="Apellido"/>
-                        <input placeholder="Contraseña"/>
-                        <input placeholder="dd-mm-aa"/>
+                        <div className="datoAlumno">
+                          <input placeholder="Usuario" required/>
+                        </div>
+                        <div className="datoAlumno">
+                          <input type="password" placeholder="Contraseña" required/>
+                        </div>
+                    </div>
+                    <div>
+                      <div className="datoAlumno">
+                        <input type="number" placeholder="DNI" required/>
+                      </div>
+                      <div className="datoAlumno">
+                        <input type="date" required/>
+                      </div>
                     </div>
                   </form>
                 </div>
