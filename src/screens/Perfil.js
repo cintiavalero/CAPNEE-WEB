@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Fondo from "../components/FondoB";
 import Navbar from "../components/NavbarVertical";
 import fotoAlumno from "../assets/alumno.jpg"
-import fotoAlumna from "../assets/alumna.jpg"
 import "./Styles/Perfil.css";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import "./general.css";
 import axios from "axios";
-const API_URL = 'http://149.50.140.55:8081';
+
+const API_URL_O = 'http://149.50.140.55:8081';
+const API_URL_T = 'http://149.50.140.55:8082';
+
 
 function Perfil() {
 
@@ -19,7 +21,11 @@ function Perfil() {
         operacionesNumerosNaturales: false,
         medida: false,
     });
+    const [bloques, setBloques] = useState(null);
+    const { idUsuario } = useParams();
+    const token = localStorage.getItem('token');
 
+    // Desplegar bloque
     const toggleSection = (section) => {
         setOpenSections((prevState) => ({
             ...prevState,
@@ -27,27 +33,44 @@ function Perfil() {
         }));
     };
 
-    const { idCurso, idUsuario } = useParams();
-    const token = localStorage.getItem('token');
-
     // Petición para obtener información de un alumno específico
     const getAlumnoById = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}/person/get-by-id?id=${id}`, {
+            const response = await axios.get(`${API_URL_O}/person/get-by-id?id=${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
             setAlumno(response.data);
             setLoading(false);
+            console.log(response)
         } catch (error) {
             setError('Error al cargar la información del alumno');
             setLoading(false);
         }
     };
 
+    // Función para obtener los detalles académicos
+    const getDetalleAcademico = async (id) => {
+        try {
+            const response = await axios.get(`${API_URL_T}/exercises-students/academic-details-by-student?studentId=${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setBloques(response.data.thematicBlocks);
+            setLoading(false);
+            console.log(response)
+        } catch (error) {
+            setError("Error al cargar los detalles académicos");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        getAlumnoById(idUsuario); // Usar el idUsuario del parámetro de la URL
+        getAlumnoById(idUsuario);
+        getDetalleAcademico(idUsuario);
     }, [idUsuario]);
 
   
@@ -72,98 +95,69 @@ function Perfil() {
                     </div>
                 </div>
 
-                   {/* Secciones desplegables */}
-                   <div className="secciones">
-                    <div onClick={() => toggleSection("numerosNaturales")} className="seccion-titulo">
-                        <span className={`viñeta ${openSections.numerosNaturales ? 'abierta' : ''}`}></span>
-                        Números naturales
-                    </div>
-                    {openSections.numerosNaturales && (
-                        <ul>
-                            <li>Usar y conocer los números</li>
-                            <div className="tabla-academica">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Ejercicio</th>
-                                            <th>Resuelto</th>
-                                            <th>Intentos</th>
-                                            <th>Tiempo</th>
-                                            <th>Calificación</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Conteo de números</td>
-                                            <td>Si</td>
-                                            <td>1</td>
-                                            <td>10s</td>
-                                            <td>5⭐</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suma de números naturales</td>
-                                            <td>No</td>
-                                            <td>2</td>
-                                            <td>4,3s</td>
-                                            <td>0⭐</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                {/* Secciones dinámicas */}
+                <div className="secciones">
+                    {bloques &&
+                        Object.entries(bloques).map(([blockKey, block]) => (
+                            <div key={blockKey} className="bloques">
+                                <div onClick={() => toggleSection(blockKey)} className="seccion-titulo">
+                                    <span className={`viñeta ${openSections[blockKey] ? "abierta" : ""}`}></span>
+                                    {block.name}
+                                </div>
+                                {openSections[blockKey] && (
+                                    <div className="subbloques">
+                                        {Object.entries(block.thematicSubBlocks).map(
+                                            ([subBlockKey, subBlock]) => (
+                                                <div key={subBlockKey}>
+                                                    <div onClick={() => toggleSection(`${blockKey}-${subBlockKey}`)}
+                                                        className="subbloque-titulo" >
+                                                        <span className={`viñeta ${openSections[`${blockKey}-${subBlockKey}`] ? "abierta" : ""}`}
+                                                        ></span> {subBlock.name}
+                                                    </div>
+                                                    {openSections[`${blockKey}-${subBlockKey}`] && (
+                                                        <div>
+                                                            {Object.entries(subBlock.thematicContents).map(
+                                                                ([contentKey, content]) => (
+                                                                    <div key={contentKey} className="actividades">
+                                                                        <h5>{content.name}</h5>
+                                                                        <div className="tabla-academica">
+                                                                            <table>
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Ejercicio</th>
+                                                                                        <th>Resuelto</th>
+                                                                                        <th>Intentos</th>
+                                                                                        <th>Tiempo</th>
+                                                                                        <th>Calificación</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {Object.values(content.exercises).flat().map((exercise) => (
+                                                                                        <tr key={exercise.id}>
+                                                                                            <td>{exercise.statement}</td>
+                                                                                            <td>{exercise.resolved ? "Sí" : "No"}</td>
+                                                                                            <td>{exercise.numberOfAttempts}</td>
+                                                                                            <td>{exercise.resolutionTime}s</td>
+                                                                                            <td>{exercise.score}⭐</td>
+                                                                                        </tr>
+                                                                                    ))}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                )}
                             </div>
-                            <li>Contexto y uso de los números</li>
-                            <div className="tabla-academica">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Ejercicio</th>
-                                            <th>Resuelto</th>
-                                            <th>Intentos</th>
-                                            <th>Tiempo</th>
-                                            <th>Calificación</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Conteo de números</td>
-                                            <td>Si</td>
-                                            <td>1</td>
-                                            <td>10s</td>
-                                            <td>5⭐</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suma de números naturales</td>
-                                            <td>No</td>
-                                            <td>2</td>
-                                            <td>4,3s</td>
-                                            <td>0⭐</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <li>Números de varias cifras</li>
-                        </ul>
-                    )}
-                    <div onClick={() => toggleSection("operacionesNumerosNaturales")} className="seccion-titulo">
-                        <span className={`viñeta ${openSections.operacionesNumerosNaturales ? 'abierta' : ''}`}></span>
-                        Operaciones con números naturales
-                    </div>
-                    {openSections.operacionesNumerosNaturales && (
-                        <ul>
-                            <li>Operaciones básicas</li>
-                            <li>Propiedades de las operaciones</li>
-                        </ul>
-                    )}
-                    <div onClick={() => toggleSection("medida")} className="seccion-titulo">
-                        <span className={`viñeta ${openSections.medida ? 'abierta' : ''}`}></span>
-                        Medida
-                    </div>
-                    {openSections.medida && (
-                        <ul>
-                            <li>Unidades de medida</li>
-                            <li>Conversión de unidades</li>
-                        </ul>
-                    )}
+                        ))}
                 </div>
+
             </body>
         </Fondo>
     );
