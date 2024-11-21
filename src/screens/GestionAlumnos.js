@@ -19,7 +19,6 @@ function GestionAlumnos() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    //Recuperar id de curso
     const { idCurso, idUsuario } = useParams();
 
     //Valores del formulario de alta
@@ -32,9 +31,7 @@ function GestionAlumnos() {
     const [errors, setErrors] = useState({});
 
 
-    //Navegar al perfil de un alumno
     const navigate = useNavigate();
-
     const verPerfil = (idUsuario) => {
       navigate(`/perfil/${idCurso}/${idUsuario}`);
     }
@@ -47,7 +44,9 @@ function GestionAlumnos() {
     const cancelarEditar = () => {
       setAlumnoSeleccionado(''); 
       setPopupEditar(false); 
+      setErrors({});
     };
+    
 
     const [popupEliminar, setPopupEliminar] = useState(false);
     const [alumnoSeleccionado, setAlumnoSeleccionado] = useState('');    
@@ -58,13 +57,13 @@ function GestionAlumnos() {
     const cancelarEliminar = () => {
       setAlumnoSeleccionado(''); 
       setPopupEliminar(false); 
+      setErrors({});
     };
 
     const [popupAgregar, setPopupAgregar] = useState(false);    
     const agregar = () => { setPopupAgregar(true); };
-    const cancelarAgregar = () => { setPopupAgregar(false); };
+    const cancelarAgregar = () => { setPopupAgregar(false); setErrors({});};
     
-    //Recuperar token
     const token = localStorage.getItem('token');
 
     //Petición para obtener un curso por id
@@ -121,25 +120,9 @@ function GestionAlumnos() {
       }
     }
 
-    //Validar los campos
-    const validarCampos = () => {
-      const newErrors = {}
-      if (!nombre.trim()) newErrors.nombre = "El nombre es obligatorio";
-      if (!apellido.trim()) newErrors.apellido = "El apellido es obligatorio";
-      if (!nombreUsuario.trim()) newErrors.nombreUsuario = "El nombre de usuario es obligatorio";
-      if (!contrasena.trim()) newErrors.contrasena = "La contraseña es obligatoria";
-      if (!dni.trim() || isNaN(dni)) newErrors.dni = "DNI es obligatorio y debe ser numérico";
-      if (!fechanacimiento.trim()) newErrors.fechanacimiento = "La fecha de nacimiento es obligatoria";
-      setErrors(newErrors);
-      return Object.keys(newErrors).length === 0;
-
-    }
-
     //Petición para alta de Alumno
     const altaAlumno = async (e) => {
       e.preventDefault();
-
-      //Validar los campos
       if (!validarCampos()) return;
 
       const alumnoData = {
@@ -166,6 +149,39 @@ function GestionAlumnos() {
         console.log('Error al crear el alumno: ', error);
       }
     }
+
+    //Validar datos de alumno
+    const validarCampos = () => {
+      const newErrors = {};
+      const today = new Date().toISOString().split("T")[0];
+    
+      if (!nombre.trim()) newErrors.nombre = "El nombre es obligatorio";
+      if (!apellido.trim()) newErrors.apellido = "El apellido es obligatorio";
+      if (!nombreUsuario.trim()) newErrors.nombreUsuario = "El nombre de usuario es obligatorio";
+      if (!contrasena.trim()) {
+        newErrors.contrasena = "La contraseña es obligatoria";
+      } else if (contrasena.length < 4) {
+        newErrors.contrasena = "La contraseña debe tener al menos 4 caracteres";
+      }
+      if (!dni.trim() || isNaN(dni)) {
+        newErrors.dni = "El DNI es obligatorio";
+      } else if (dni.length > 11) {
+        newErrors.dni = "El DNI no puede tener más de 11 caracteres";
+      } else if (dni.length < 8) {
+        newErrors.dni = "El DNI debe tener por lo menos 8 caracteres";
+      }
+          if (!fechanacimiento.trim()) {
+        newErrors.fechanacimiento = "La fecha de nacimiento es obligatoria";
+      } else if (fechanacimiento > today) {
+        newErrors.fechanacimiento = "La fecha de nacimiento no puede ser posterior a hoy";
+      }
+    
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+    };
+    
+
+    
 
     return (
         <Fondo >
@@ -248,20 +264,34 @@ function GestionAlumnos() {
                   </div>
                   <form id="formAlumno">
                     <div>
-                        <input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required/>
-                        {errors.nombre && <p style={{ fontSize: '9px', color: 'red' }}>{errors.nombre}</p>}
-                        <input placeholder="Usuario" value={nombreUsuario} onChange={(e) => setNombreUsuario(e.target.value)} required/>
-                        {errors.nombreUsuario && <p style={{ fontSize: '9px', color: 'red' }}>{errors.nombreUsuario}</p>}
-                        <input placeholder="DNI" value={dni} onChange={(e) => setDni(e.target.value)} required/>
-                        {errors.dni && <p style={{ fontSize: '9px', color: 'red' }}>{errors.dni}</p>}
+                        <div className="datoAlumno">
+                          <input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required/>
+                          {errors.nombre && <p style={{ padding: '5px',fontSize: '10px', color: 'red' }}>{errors.nombre}</p>}
+                        </div>
+                        <div className="datoAlumno">
+                          <input placeholder="Apellido" value={apellido} onChange={(e) => setApellido(e.target.value)} required/>
+                          {errors.apellido && <p style={{ padding: '5px',fontSize: '10px', color: 'red' }}>{errors.apellido}</p>}
+                        </div>
                     </div>
                     <div>
-                        <input placeholder="Apellido" value={apellido} onChange={(e) => setApellido(e.target.value)} required/>
-                        {errors.apellido && <p style={{ fontSize: '9px', color: 'red' }}>{errors.apellido}</p>}
-                        <input placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)} required/>
-                        {errors.contrasena && <p style={{ fontSize: '9px', color: 'red' }}>{errors.contrasena}</p>}
-                        <input placeholder="aaaa-mm-dd" value={fechanacimiento} onChange={(e) => setFechanacimiento(e.target.value)} required/>
-                        {errors.fechanacimiento && <p style={{ fontSize: '9px', color: 'red' }}>{errors.fechanacimiento}</p>}
+                        <div className="datoAlumno">
+                          <input placeholder="Usuario" value={nombreUsuario} onChange={(e) => setNombreUsuario(e.target.value)} required/>
+                          {errors.nombreUsuario && <p style={{ padding: '5px',fontSize: '10px', color: 'red' }}>{errors.nombreUsuario}</p>}
+                        </div>
+                        <div className="datoAlumno">
+                          <input type="password" placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)} required/>
+                          {errors.contrasena && <p style={{ padding: '5px',fontSize: '10px', color: 'red' }}>{errors.contrasena}</p>}
+                        </div>
+                    </div>
+                    <div>
+                      <div className="datoAlumno">
+                        <input type="number" placeholder="DNI" value={dni} onChange={(e) => setDni(e.target.value)} required/>
+                        {errors.dni && <p style={{ padding: '5px',fontSize: '10px', color: 'red' }}>{errors.dni}</p>}
+                      </div>
+                      <div className="datoAlumno">
+                        <input type="date" placeholder="aaaa-mm-dd" value={fechanacimiento} onChange={(e) => setFechanacimiento(e.target.value)} required/>
+                        {errors.fechanacimiento && <p style={{ padding: '5px',fontSize: '10px', color: 'red' }}>{errors.fechanacimiento}</p>}
+                      </div>
                     </div>
                   </form>
                 </div>

@@ -33,7 +33,7 @@ function Login() {
 
     } catch (error) {
       console.error('Error durante el inicio de sesión: ', error);
-      setError("No se puede iniciar sesión. Verifica tus credenciales.");
+      setError("No se puede iniciar sesión. Verificá tus credenciales.");
     }   
   };
 
