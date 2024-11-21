@@ -95,9 +95,25 @@
 
 #formCurso select {
     padding: 10px;
-    border: 1px solid #a4a0a9;
+    border: 1px solid #e3e3e3;
+    background-color: #f9f9f9;
     border-radius: 5px;
     font-size: 12px;
     width: 60%;
+    height: 35px;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
 
 }
+
+#formCurso select:focus {
+    border-color: #b28cf6;
+    background-color: #ffffff; 
+    box-shadow: 0 0 5px rgba(178, 140, 246, 0.5);
+}
+
+#formCurso select::placeholder {
+    color: #a4a0a9;
+}
+
